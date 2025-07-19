@@ -37,6 +37,13 @@
     ],
     "experiments": {
       "typedRoutes": true
-    }
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "32ea83e4-e3aa-4f06-8639-ab024f80029f"
+      }
+    },
+    "owner": "dealr-dev"
   }
 }
