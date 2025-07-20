@@ -2,7 +2,7 @@
   "expo": {
     "name": "dealr-nextgen",
     "slug": "dealr-nextgen",
-    "version": "1.0.0",
+    "version": "2.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "dealrnextgen",
@@ -16,7 +16,8 @@
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "edgeToEdgeEnabled": true
+      "edgeToEdgeEnabled": true,
+      "package": "com.dealrdev.dealrnextgen"
     },
     "web": {
       "bundler": "metro",
