@@ -1,10 +1,42 @@
 import { useColorScheme } from '@/hooks/useColorScheme';
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
+import { Stack, useRouter } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
+import { useEffect, useState } from 'react';
 import 'react-native-reanimated';
+import { AuthProvider, useAuth } from './context/AuthContext';
 
+function AuthLayout() {
+  const { user, onboardingComplete, role } = useAuth();
+  const router = useRouter();
+  const [ready, setReady] = useState(false);
+
+  useEffect(() => {
+    setReady(true);
+  }, []);
+
+  useEffect(() => {
+    if (!ready) return;
+
+    if (!user) {
+      router.replace('/');
+    } else if (user && !onboardingComplete) {
+      router.replace(`/${role}/onboarding`);
+    } else if (user && onboardingComplete) {
+      router.replace(`/${role}/listings`);
+    }
+  }, [ready, user, onboardingComplete, role]);
+
+  return (
+    <Stack screenOptions={{ headerShown: true }}>
+      <Stack.Screen name="index" />
+      <Stack.Screen name="auth/sign-in" />
+      <Stack.Screen name="auth/sign-up" />
+      <Stack.Screen name="auth/exec-link" />
+      <Stack.Screen name="auth/verify-otp" />
+    </Stack>
+  );
+}
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
@@ -23,9 +55,9 @@ export default function RootLayout() {
   }
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack screenOptions={{ headerShown: true }} />
+    <AuthProvider>
+      <AuthLayout />
       <StatusBar style="auto" />
-    </ThemeProvider>
+    </AuthProvider>
   );
 }
