@@ -17,23 +17,24 @@ function AuthLayout() {
 
   useEffect(() => {
     if (!ready) return;
-
+  
     if (!user) {
       router.replace('/');
     } else if (user && !onboardingComplete) {
       router.replace(`/${role}/onboarding`);
     } else if (user && onboardingComplete) {
-      router.replace(`/${role}/listings`);
+      router.replace('/dashboard'); // 👈 route to role-aware layout
     }
   }, [ready, user, onboardingComplete, role]);
 
   return (
-    <Stack screenOptions={{ headerShown: true }}>
+    <Stack screenOptions={{ headerShown: false }}>
       <Stack.Screen name="index" />
       <Stack.Screen name="auth/sign-in" />
       <Stack.Screen name="auth/sign-up" />
       <Stack.Screen name="auth/exec-link" />
       <Stack.Screen name="auth/verify-otp" />
+      <Stack.Screen name="dashboard" options={{ headerShown: false }} />
     </Stack>
   );
 }

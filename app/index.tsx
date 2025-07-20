@@ -1,17 +1,68 @@
-
-import { View, Text, Button } from 'react-native';
 import { useRouter } from 'expo-router';
+import { Dimensions, SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import WelcomeBg from '../assets/img/welcome.png';
+import ReusableImage from './components/ReusableImage';
+import WelcomeCard from './components/WelcomeCard';
+import { useAuth } from './context/AuthContext';
 
 export default function WelcomeScreen() {
   const router = useRouter();
+  const { signIn } = useAuth();
+  const { width } = Dimensions.get('window');
+
+  const handleBuyer = () => signIn('buyer');
+  const handleSeller = () => signIn('seller');
+  const handleExec = () => router.push('/auth/exec-link');
+  const handleLogin = () => router.push('/auth/sign-in');
 
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Welcome to Dealr</Text>
-      <Button title="I am a Buyer" onPress={() => router.push('/auth/sign-up?role=buyer')} />
-      <Button title="I am a Seller" onPress={() => router.push('/auth/sign-up?role=seller')} />
-      <Button title="Already have an account" onPress={() => router.push('/auth/sign-in')} />
-      <Button title="I am a Sales Exec" onPress={() => router.push('/auth/exec-link')} />
-    </View>
+    <SafeAreaView style={{ flex: 1 }}>
+      <View style={styles.container}>
+        <View style={styles.imageWrapper}>
+          <ReusableImage ImgSrc={WelcomeBg} style={{ width, height: '100%' }} />
+          <View style={styles.overlay}>
+            <Text style={styles.overlayText}>Welcome to Dealr</Text>
+          </View>
+        </View>
+
+        <View style={styles.cardWrapper}>
+          <WelcomeCard
+            onLogin={handleLogin}
+            onExecLink={handleExec}
+            onBuyerStart={handleBuyer}
+            onSellerStart={handleSeller}
+          />
+        </View>
+      </View>
+    </SafeAreaView>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  imageWrapper: {
+    flex: 1,
+    alignItems: 'center',
+  },
+  overlay: {
+    position: 'absolute',
+    alignItems: 'center',
+    paddingTop: 40,
+    paddingBottom: 30,
+    width: '100%',
+  },
+  overlayText: {
+    fontSize: 15,
+    color: '#FFFFFF',
+    fontFamily: 'Poppins-Regular',
+  },
+  cardWrapper: {
+    position: 'absolute',
+    bottom: 0,
+    width: '100%',
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+  },
+});
