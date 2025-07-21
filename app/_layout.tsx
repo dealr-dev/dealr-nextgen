@@ -1,3 +1,4 @@
+import '@/config/amplify-config';
 import { useColorScheme } from '@/hooks/useColorScheme';
 import { useFonts } from 'expo-font';
 import { Stack, useRouter } from 'expo-router';
@@ -5,6 +6,7 @@ import { StatusBar } from 'expo-status-bar';
 import { useEffect, useState } from 'react';
 import 'react-native-reanimated';
 import { AuthProvider, useAuth } from './context/AuthContext';
+
 
 function AuthLayout() {
   const { user, onboardingComplete, role } = useAuth();
@@ -51,7 +53,7 @@ export default function RootLayout() {
   });
 
   if (!loaded) {
-    // Async font loading only occurs in development.
+    
     return null;
   }
 
