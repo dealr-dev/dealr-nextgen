@@ -16,7 +16,7 @@ const ScrollContainer: React.FC<ScrollContainerProps> = ({ children, contentCont
 
 const styles = StyleSheet.create({
   container: {
-    padding: 16,
+    padding: 16
   },
 });
 

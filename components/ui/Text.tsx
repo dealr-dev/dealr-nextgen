@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text as RNText, TextProps, StyleSheet } from 'react-native';
+import { StyleSheet, Text as RNText, TextProps } from 'react-native';
 import colors from '../theme/colors';
 
 const Text: React.FC<TextProps> = ({ style, children, ...props }) => {
@@ -14,6 +14,7 @@ const styles = StyleSheet.create({
   text: {
     color: colors.text,
     fontSize: 14,
+    fontFamily: 'Poppins-Regular'
   },
 });
 
