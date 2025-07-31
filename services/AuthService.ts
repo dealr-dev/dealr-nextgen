@@ -46,8 +46,8 @@ class AuthService {
   /**
    * Sign in using phone/email and password.
    */
-  async signIn({ username, password }: SignInParams): Promise<any> {
-    return Auth.signIn(username, password);
+  async signIn(username : string): Promise<any> {
+    return Auth.signIn(username);
   }
 
   /**
@@ -78,6 +78,39 @@ class AuthService {
     return Auth.currentAuthenticatedUser();
   }
 
+  async getCurrentUserDetails(): Promise<any> {
+    const user = Auth.currentAuthenticatedUser();
+
+    const {attributes} = user;
+
+    return {
+      condition: typeof attributes['custom:condition'] !== 'undefined' ? attributes['custom:condition'] : null,
+      categories: typeof attributes['custom:categories'] !== 'undefined' ? mapToAttributeArray(attributes['custom:categories']) : [],
+      budget: typeof attributes['custom:budget'] !== 'undefined' ? attributes['custom:budget'] : null,
+      role: attributes['custom:role'],
+      customer: attributes['custom:customer'],
+      seller: attributes['custom:seller'],
+      dealership: attributes['custom:dealership'],
+      features: typeof attributes['custom:features'] !== 'undefined' ? mapToAttributeArray(attributes['custom:features']) : [],
+      brands: typeof attributes['custom:brands'] !== 'undefined' ? mapToAttributeArray(attributes['custom:brands']) : [],
+      years: typeof attributes['custom:years'] !== 'undefined' ? mapToObject(attributes['custom:years']) : null,
+      prices: typeof attributes['custom:prices'] !== 'undefined' ? mapToObject(attributes['custom:prices']) : null,
+      sort: typeof attributes['custom:sort'] !== 'undefined' ? attributes['custom:sort'] : null,
+      location: typeof attributes['custom:location'] !== 'undefined' ? mapToObject(attributes['custom:location']) : null,
+      avatar: attributes['custom:avatar'],
+      route: attributes['custom:route'],
+      name: attributes.name,
+      email: attributes.email,
+      phone: attributes.phone_number
+    }
+  }
+
+  async getCurrentUserToken(): Promise<string> {
+    const user = Auth.currentAuthenticatedUser();
+
+    return user?.signInUserSession?.idToken
+  }
+
   /**
    * Return current session including tokens.
    */
@@ -105,6 +138,26 @@ class AuthService {
   async forgotPasswordSubmit(username: string, code: string, newPassword: string): Promise<any> {
     return Auth.forgotPasswordSubmit(username, code, newPassword);
   }
+
+  async sendCustomChallengeAnswer(user: any, code: string) : Promise<any> {
+    return Auth.sendCustomChallengeAnswer(user, code)
+  }
 }
 
 export default new AuthService();
+
+const mapToAttributeArray = (stringvalue: string) => {
+  if (stringvalue) {
+
+      return JSON.parse(stringvalue);
+  }
+
+  return []
+};
+
+const mapToObject = (stringvalue: string) => {
+  if (stringvalue) {
+      return JSON.parse(stringvalue);
+  }
+  return null;
+};

@@ -72,14 +72,27 @@ export default function SignIn() {
   const isFormValid = isMobileNumberValid;
   const isFieldsFilled = mobileNumber;
 
-  const submitDetails = () => {
+  const submitDetails = async () => {
+    setError("");
     if (isFormValid && isFieldsFilled) {
-      const phoneNumber = generateMobileNumber(currentCountry.dial_code, mobileNumber);
-      console.log('Logging in with:', phoneNumber);
-      router.push({
-        pathname: '/auth/verify-otp',
-        params: { phoneNumber, from: 'sign-in' }
-      })
+      try {
+        
+        setLoading(true);
+        const phoneNumber = generateMobileNumber(currentCountry.dial_code, mobileNumber);
+        console.log('Logging in with:', phoneNumber);
+
+        //const user = await AuthService.signIn(phoneNumber);
+        setLoading(false);
+
+        router.push({
+          pathname: '/auth/verify-otp',
+          params: { phoneNumber, fromRoute: 'sign-in' }
+        })
+      }
+      catch (e) {
+        setError(e.message);
+        setLoading(false);
+      }
     }
   };
 
