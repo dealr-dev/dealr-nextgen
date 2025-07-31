@@ -4,7 +4,7 @@ import CustomTheme from '../../../theme';
 import { sortItemsByAsc } from '../../../utils';
 import { border, borderRadius } from '../../../utils/Styles';
 import { metadataAPI } from '../../services';
-import CarouselItem from '../Core/carouselItem.js';
+import CarouselItem from '../Core/CarouselItem.js.js';
 import FeaturesModel from '../Modals/Features';
 import ReusableButton from '../Reusable/Button';
 import ReusableIcon from '../Reusable/Icon';

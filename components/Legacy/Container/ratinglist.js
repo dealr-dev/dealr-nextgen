@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
-import Rating from "../Core/rating";
+import Rating from "../Core/Rating";
 
 const RatingList = () => {
   return (

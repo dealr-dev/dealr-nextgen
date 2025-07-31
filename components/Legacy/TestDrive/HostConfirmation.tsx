@@ -4,7 +4,7 @@ import React from 'react';
 import { Dimensions } from 'react-native';
 import { border, borderRadius, topBarProps } from '../../../utils/Styles';
 import ScreenTopNav from '../../navigation/TopNav';
-import Rating from '../Core/rating';
+import Rating from '../Core/Rating';
 import ReusableButton from '../Reusable/Button';
 import ReusableImage from '../Reusable/Image';
 import Text from '../Text';

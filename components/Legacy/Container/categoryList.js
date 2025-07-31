@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Animated, Dimensions, FlatList } from "react-native";
-import CarouselItem from '../Core/carouselItem.js';
+import CarouselItem from '../Core/CarouselItem.js.js';
 import ReusableText from "../Reusable/Text";
 import ReusableInnerWrapper from "../Reusable/Wrapper/Inner";
 import { defaultBodyTypes } from '../Vehicle';

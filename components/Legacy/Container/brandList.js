@@ -4,7 +4,7 @@ import {
   sortItemsByAsc
 } from "../../../utils";
 import { metadataAPI } from "../../services";
-import CarouselItem from '../Core/carouselItem.js';
+import CarouselItem from '../Core/CarouselItem.js.js';
 import ReusableText from "../Reusable/Text";
 import ReusableInnerWrapper from "../Reusable/Wrapper/Inner";
 const { width } = Dimensions.get('window');

@@ -2,7 +2,7 @@ import React from 'react';
 import { Dimensions } from 'react-native';
 import CustomTheme from '../../../theme';
 import { border } from '../../utils/Styles';
-import Range from '../Core/range';
+import Range from '../Core/Range';
 import ReusableButton from '../Reusable/Button';
 import ReusableText from '../Reusable/Text';
 import ReusableInnerWrapper from '../Reusable/Wrapper/Inner';

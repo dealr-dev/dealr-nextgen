@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet, View } from "react-native";
-import AddButton from "../Core/addButton";
-import ImageView from "../Core/imageWithProgress";
+import AddButton from "../Core/AddButton";
+import ImageView from "../Core/ImageWithProgress";
 
 const ImageList = ({ handleOnPress, images = [], onRemoveImage }) => {
   return (

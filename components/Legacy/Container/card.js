@@ -1,9 +1,9 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import CardBanner from '../Core/cardBanner';
-import ExpandCard from '../Core/expandCard';
-import Rating from '../Core/rating';
-import Tag from '../Core/tag';
+import CardBanner from '../Core/CardBanner';
+import ExpandCard from '../Core/ExpandCard';
+import Rating from '../Core/Rating';
+import Tag from '../Core/Tag';
 
 const Card = ({
   logo,
