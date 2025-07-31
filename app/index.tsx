@@ -1,4 +1,5 @@
 import { useRouter } from 'expo-router';
+import { useEffect } from "react";
 import { Dimensions, SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import WelcomeBg from '../assets/img/welcome.png';
 import ReusableImage from '../components/ReusableImage';
@@ -14,6 +15,10 @@ export default function WelcomeScreen() {
   const handleSeller = () => signIn('seller');
   const handleExec = () => router.push('/auth/exec-link');
   const handleLogin = () => router.push('/auth/sign-in');
+
+  useEffect(() => {
+    //router.push('/auth/sign-in');
+  }, [])
 
   return (
     <SafeAreaView style={{ flex: 1 }}>

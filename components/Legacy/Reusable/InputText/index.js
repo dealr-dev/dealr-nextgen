@@ -1,9 +1,10 @@
 import React from 'react';
 import {
-    StyleSheet, TextInput, TextInputProps,
+    TextInput, TextInputProps,
     TextStyle,
     View
 } from 'react-native';
+import { styles } from '../../../../styles';
 
 interface ReusableInputTextProps extends TextInputProps {
   style?: TextStyle;
@@ -11,6 +12,7 @@ interface ReusableInputTextProps extends TextInputProps {
   viewPass?: boolean; // Optional: not implemented without custom toggle
   password?: boolean;
   label?: string;
+  handleTextChange? : (text: string) => void;
 }
 
 const ReusableInputText: React.FC<ReusableInputTextProps> = ({
@@ -18,19 +20,21 @@ const ReusableInputText: React.FC<ReusableInputTextProps> = ({
   borderless = false,
   viewPass = false, // Reserved for future enhancement
   password = false,
+  handleTextChange,
   ...rest
 }) => {
   return (
-    <View style={[styles.inputWrapper, borderless && styles.borderless]}>
+    <View>
       <TextInput
-        style={[styles.input, style]}
+        style={styles(style).appInputText}
         secureTextEntry={password}
+        onChangeText={handleTextChange}
         {...rest}
       />
     </View>
   );
 };
-
+/*
 const styles = StyleSheet.create({
   inputWrapper: {
     borderBottomWidth: 1,
@@ -47,6 +51,6 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     paddingHorizontal: 4,
   },
-});
+});*/
 
 export default ReusableInputText;

@@ -1,8 +1,9 @@
 import React from 'react';
 import {
-    GestureResponderEvent, StyleSheet, TouchableOpacity,
-    View
+  GestureResponderEvent, TouchableOpacity,
+  View
 } from 'react-native';
+import { styles } from '../../../../styles';
 
 interface ReusableButtonProps {
   style?: any;
@@ -23,7 +24,7 @@ export default function ReusableButton({
 
   return (
     <ButtonComponent
-      style={[styles.button, style, disabled && styles.disabled]}
+      style={styles(style).button}
       onPress={!disabled ? handleOnPress : undefined}
       activeOpacity={activeOpacity}
     >
@@ -31,17 +32,3 @@ export default function ReusableButton({
     </ButtonComponent>
   );
 }
-
-const styles = StyleSheet.create({
-  button: {
-    paddingVertical: 12,
-    paddingHorizontal: 24,
-    borderRadius: 8,
-    backgroundColor: '#5A89EA',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  disabled: {
-    opacity: 0.5,
-  },
-});

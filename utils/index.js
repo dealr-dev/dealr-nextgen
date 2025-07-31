@@ -18,6 +18,15 @@ export const openMaps = (latitude, longitude, label = 'Location') => {
   });
 };
 
+export const generateMobileNumber = (code, mobilenumber) => {
+    if (mobilenumber) {
+        const mobilenumberwithnozero = mobilenumber.charAt(0) === '0' ? mobilenumber.replace(mobilenumber.charAt(0), "") : mobilenumber;
+
+        return `${code}${mobilenumberwithnozero}`;
+    }
+
+    return `${code}${mobilenumber}`;
+}
 
 export const highlightSelectedTile = (arr, i) => {
     return arr.length > 0 && arr.includes(i);

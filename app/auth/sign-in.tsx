@@ -1,8 +1,8 @@
 import Constants from 'expo-constants';
+import { useRouter } from 'expo-router';
 import React, { useEffect, useState } from 'react';
 import { Dimensions, FlatList, Modal } from 'react-native';
 import ArrowDown from '../../assets/img/SignUp/ArrowDown';
-//import { useNavigate } from 'react-router-native';
 import BackButton from '../../components/legacy/Reusable/BackButton';
 import ReusableButton from '../../components/legacy/Reusable/Button';
 import ReusableIcon from '../../components/legacy/Reusable/Icon';
@@ -27,13 +27,15 @@ export default function SignIn() {
   const [isMobileNumberValid, validateMobileNumber] = useState(true);
   const [mobileNumberError, setMobileNumberError] = useState('');
 
-  const [error, setError] = useState("Something went wrong");
+  const [error, setError] = useState("");
 
   const [countries, setCountries] = useState([]);
   const [currentCountry, setCountry] = useState({});
   const [showModal, setShowModal] = useState(false);
   const [loading, setLoading] = useState(false);
   const [apiError, setApiError] = useState('');
+
+  const router = useRouter();
 
   useEffect(() => {
     async function fetchCountriesCodesData() {
@@ -72,9 +74,12 @@ export default function SignIn() {
 
   const submitDetails = () => {
     if (isFormValid && isFieldsFilled) {
-      const fullPhoneNumber = generateMobileNumber(currentCountry.dial_code, mobileNumber);
-      console.log('Logging in with:', fullPhoneNumber);
-      handleNavigate('VerifyPhone');
+      const phoneNumber = generateMobileNumber(currentCountry.dial_code, mobileNumber);
+      console.log('Logging in with:', phoneNumber);
+      router.push({
+        pathname: '/auth/verify-otp',
+        params: { phoneNumber, from: 'sign-in' }
+      })
     }
   };
 
@@ -326,7 +331,7 @@ export default function SignIn() {
                             borderless={true}
                             color={CustomTheme.colors['raven']}
                             placeholder='Mobile number'
-                            handleTextChange={text => { handleMobileNumber(text) }}
+                            handleTextChange={text => handleMobileNumber(text)}
                             onBlur={text => { handleMobileNumber(text) }}
                             placeholderTextColor={CustomTheme.colors.mineShaft}
                             keyboardType='phone-pad'
@@ -378,6 +383,7 @@ export default function SignIn() {
                                 borderBottomRightRadius: 10,
                                 marginTop: 50
                             }}
+                            disabled = {!(isFormValid && isFieldsFilled)}
                             handleOnPress={() => { submitDetails() }}
                         >
                             <ReusableText
