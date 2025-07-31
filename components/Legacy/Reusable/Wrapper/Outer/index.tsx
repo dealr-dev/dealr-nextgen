@@ -1,5 +1,6 @@
 import React from 'react';
-import { LayoutChangeEvent, SafeAreaView, StyleSheet, ViewStyle } from 'react-native';
+import { LayoutChangeEvent, SafeAreaView, ViewStyle } from 'react-native';
+import { styles } from '../../../../../styles';
 
 interface OuterProps {
   style?: ViewStyle;
@@ -19,13 +20,5 @@ const Outer: React.FC<OuterProps> = ({ style, children, onRef, onLayout }) => {
     </SafeAreaView>
   );
 };
-
-const styles = StyleSheet.create({
-  wrapperBlock: {
-    flex: 1,
-    backgroundColor: '#fff',
-    paddingHorizontal: 16,
-  },
-});
 
 export default Outer;

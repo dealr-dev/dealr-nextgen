@@ -1,23 +1,23 @@
 import React from 'react';
-import { Block } from 'galio-framework';
-import { styles } from '../../../../styles';
+import { View } from 'react-native';
+import { styles } from '../../../../../styles';
 
 export default function Inner({style, children, safe = false}) {
     if( safe ) {
         return (
-            <Block
+            <View
                 safe
                 style={styles(style).innerBlock} 
             >
                 {children}
-            </Block>
+            </View>
         );
     }
     return (
-        <Block
+        <View
             style={styles(style).innerBlock} 
         >
             {children}
-        </Block>
+        </View>
     );
 }

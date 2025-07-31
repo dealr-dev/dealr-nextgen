@@ -1,113 +1,402 @@
+import Constants from 'expo-constants';
 import React, { useEffect, useState } from 'react';
 import { Dimensions, FlatList, Modal } from 'react-native';
-import TextField from '../../components/form/TextField';
-import Box from '../../components/layout/Box';
-import ScrollContainer from '../../components/layout/ScrollContainer';
-import colors from '../../components/theme/colors';
-import IconButton from '../../components/ui/IconButton';
-import Text from '../../components/ui/Text';
+import ArrowDown from '../../assets/img/SignUp/ArrowDown';
+//import { useNavigate } from 'react-router-native';
+import BackButton from '../../components/legacy/Reusable/BackButton';
+import ReusableButton from '../../components/legacy/Reusable/Button';
+import ReusableIcon from '../../components/legacy/Reusable/Icon';
+import ReusableInputText from '../../components/legacy/Reusable/InputText';
+import Loader from '../../components/legacy/Reusable/Loader';
+import ReusableText from '../../components/legacy/Reusable/Text';
+import ReusableTile from '../../components/legacy/Reusable/Tile';
+import ReusableInnerWrapper from '../../components/legacy/Reusable/Wrapper/Inner';
+import ReusableOuterWrapper from '../../components/legacy/Reusable/Wrapper/Outer';
+import ReusableScrollView from '../../components/legacy/Reusable/Wrapper/ScrollView';
+import ProgressBar from '../../components/nav/ProgressBar';
+import ScreenTopNav from '../../components/nav/TopNav';
+import CustomTheme from '../../theme';
+import { generateMobileNumber } from '../../utils';
 import CountryDialCodes from '../../utils/CountriesDialInfo';
 
+export default function SignIn() {
+  //const navigate = useNavigate();
+  const phoneRegExp = /^\+(9[976]\d|8[987530]\d|6[987]\d|5[90]\d|42\d|3[875]\d|2[98654321]\d|9[8543210]|8[6421]|6[6543210]|5[87654321]|4[987654310]|3[9643210]|2[70]|7|1)\d{1,14}$/;
 
-const SignIn = () => {
-  const [countries, setCountries] = useState([]);
-  const [currentCountry, setCountry] = useState<any>({});
   const [mobileNumber, setMobileNumber] = useState('');
-  const [showModal, setShowModal] = useState(false);
+  const [isMobileNumberValid, validateMobileNumber] = useState(true);
+  const [mobileNumberError, setMobileNumberError] = useState('');
 
-  const { width } = Dimensions.get('window');
+  const [error, setError] = useState("Something went wrong");
+
+  const [countries, setCountries] = useState([]);
+  const [currentCountry, setCountry] = useState({});
+  const [showModal, setShowModal] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [apiError, setApiError] = useState('');
 
   useEffect(() => {
-    setCountries(CountryDialCodes);
-    const defaultCountry = CountryDialCodes.find(c => c.name === 'South Africa');
-    setCountry(defaultCountry || {});
+    async function fetchCountriesCodesData() {
+      setCountries(CountryDialCodes);
+      setCountry(CountryDialCodes.find(country => country.name === 'South Africa'));
+    }
+    fetchCountriesCodesData();
+    setApiError('');
   }, []);
 
-  const showHideModal = () => setShowModal(prev => !prev);
+  const handleNavigate = screen => {
+   // navigate(`/${screen}`);
+  };
 
-  const selectCountry = (countryName: string) => {
-    const found = countries.find(c => c.name === countryName);
-    if (found) {
-      setCountry(found);
-      setShowModal(false);
+  const handleMobileNumber = number => {
+    if (typeof number === 'string') {
+      if (number === '') {
+        validateMobileNumber(false);
+        setMobileNumberError('Phone number is required!');
+      } else if (!phoneRegExp.test(generateMobileNumber(currentCountry.dial_code, number))) {
+        validateMobileNumber(false);
+        setMobileNumberError('Phone number is invalid!');
+      } else {
+        validateMobileNumber(true);
+        setMobileNumber(number);
+      }
     }
   };
 
+  const showHideModal = () => {
+    setShowModal(!showModal);
+  };
+
+  const isFormValid = isMobileNumberValid;
+  const isFieldsFilled = mobileNumber;
+
+  const submitDetails = () => {
+    if (isFormValid && isFieldsFilled) {
+      const fullPhoneNumber = generateMobileNumber(currentCountry.dial_code, mobileNumber);
+      console.log('Logging in with:', fullPhoneNumber);
+      handleNavigate('VerifyPhone');
+    }
+  };
+
+  const selectCountry = country => {
+    const selected = countries.find(obj => obj.name === country);
+    setCountry(selected);
+    setShowModal(false);
+  };
+
+  const { width } = Dimensions.get('window');
+
   return (
-    <ScrollContainer>
-      <Box style={{ marginBottom: 16 }}>
-        <Text style={{ fontSize: 24, fontWeight: '700' }}>Sign In</Text>
-        <Text style={{ fontSize: 16, marginTop: 4 }}>Just your login details</Text>
-      </Box>
+    <ReusableScrollView>
+      <ReusableOuterWrapper style={{ justifyContent: 'flex-start', alignItems: 'flex-start', backgroundColor: 'white', marginBottom: 80 }}>
+        <ScreenTopNav style={{ width: width, justifyContent: 'flex-start' }}>
+          <ReusableInnerWrapper>
+            <BackButton
+              iconName="arrowleft"
+              handleOnPress={() => handleNavigate('Main')}
+              iconSize={20}
+              iconColor={CustomTheme.colors.cornflowerBlue}
+            />
+          </ReusableInnerWrapper>
+          <ReusableInnerWrapper style={{ position: 'relative', left: 13 }}>
+            <ReusableText style={{ textTransform: 'uppercase', fontFamily: 'BebasNeue-Regular', color: 'black', fontSize: 24, marginTop: 16, marginBottom: 16, lineHeight: 29, height: 29 }}>
+              sign in
+            </ReusableText>
+          </ReusableInnerWrapper>
+        </ScreenTopNav>
 
-      <Box style={{ marginBottom: 16, flexDirection: 'row' }}>
-        <Text style={{ marginBottom: 8 }}>
-          {currentCountry?.flag} {currentCountry?.dial_code}
-        </Text>
+        <ProgressBar step={5} />
+        {loading && <Loader />}
 
-        <TextField
-          placeholder="Mobile number"
-          keyboardType="phone-pad"
-          value={mobileNumber}
-          onChangeText={setMobileNumber}
-        />
+        <ReusableInnerWrapper
+                    style={{
+                        height: 27,
+                        flexDirection: 'row',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        marginTop: 85,
+                        marginLeft: 'auto',
+                        marginRight: 'auto'
+                    }}
+                >
+                    <ReusableText
+                        style={{
+                            fontFamily: 'Poppins-Bold',
+                            color: 'black',
+                            fontSize: 22,
+                            height: 35,
+                            lineHeight: 35
+                        }}
+                    >
+                        Just your login details
+                </ReusableText>
+          </ReusableInnerWrapper>
 
-        <Box style={{ marginTop: 8, alignItems: 'flex-start' }}>
-          <IconButton icon="arrow-drop-down" onPress={showHideModal} />
-        </Box>
-      </Box>
+          <ReusableInnerWrapper
+                    style={{
+                        flexDirection: 'column',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        marginTop: 58,
+                        marginLeft: 'auto',
+                        marginRight: 'auto'
+                    }}
+                >
 
-      <Box>
-        <Text
-          style={{
-            backgroundColor: colors.primary,
-            color: 'white',
-            textAlign: 'center',
-            padding: 12,
-            borderRadius: 8,
-            fontWeight: '700',
-          }}
-        >
-          Sign In
-        </Text>
-      </Box>
+                    <Modal
+                        animationType='slide'
+                        transparent={false}
+                        visible={showModal}>
+                        <ReusableInnerWrapper
+                            safe={true}
+                            style={{
+                                backgroundColor: '#fff',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                marginTop: Constants.statusBarHeight,
+                            }}
+                        >
+                            <ReusableInnerWrapper>
+                                <FlatList
+                                    data={countries}
+                                    keyExtractor={(_, index) => index.toString()}
+                                    renderItem={({ item, index }) =>
+                                        <ReusableTile shadowless={true} handleTileSelection={() => selectCountry(item.name)}>
+                                            <ReusableInnerWrapper
+                                                style={{
+                                                    width: width,
+                                                    paddingTop: 10,
+                                                    paddingBottom: 10,
+                                                    backgroundColor: index % 2 == 0 ? 'gallery' : 'white'
+                                                }}
+                                            >
+                                                <ReusableText
+                                                    style={{
+                                                        textAlign: 'left',
+                                                        height: 25,
+                                                        lineHeight: 25,
+                                                    }}
+                                                >
+                                                    {item.flag} {item.name} ({item.dial_code})
+                                            </ReusableText>
+                                            </ReusableInnerWrapper>
+                                        </ReusableTile>
+                                    }
+                                />
+                                <ReusableInnerWrapper
+                                    style={{
+                                        backgroundColor: 'cornflowerBlue',
+                                        paddingTop: 20,
+                                        width: width,
+                                        paddingBottom: 20,
+                                    }}
+                                >
+                                    <ReusableTile
+                                        shadowless={true}
+                                        handleTileSelection={() => { showHideModal() }}
+                                    >
+                                        <ReusableIcon
+                                            iconName='arrow-left'
+                                            iconSize={20}
+                                            iconColor='white'
+                                            style={{
+                                                marginRight: 10
+                                            }}
+                                        />
+                                        <ReusableText
+                                            style={{
+                                                color: 'white',
+                                                fontSize: 16,
+                                                textAlign: 'center',
+                                                fontWeight: '600',
+                                                fontFamily: 'Poppins-Regular',
+                                                marginLeft: 10,
+                                                height: 18,
+                                                lineHeight: 20
+                                            }}
+                                        >
+                                            Cancel
+                                    </ReusableText>
+                                    </ReusableTile>
+                                </ReusableInnerWrapper>
+                            </ReusableInnerWrapper>
+                        </ReusableInnerWrapper>
+                    </Modal>
 
-      <Modal visible={showModal} animationType="slide">
-        <ScrollContainer>
-          <Text style={{ fontSize: 20, fontWeight: '600', marginBottom: 16 }}>
-            Select Country
-          </Text>
-          <FlatList
-            data={countries}
-            keyExtractor={(item, i) => i.toString()}
-            renderItem={({ item }) => (
-              <Text
-                onPress={() => selectCountry(item.name)}
-                style={{
-                  paddingVertical: 12,
-                  borderBottomWidth: 1,
-                  borderBottomColor: '#eee',
-                }}
-              >
-                {item.flag} {item.name} ({item.dial_code})
-              </Text>
-            )}
-          />
-          <Text
-            onPress={showHideModal}
-            style={{
-              color: colors.primary,
-              textAlign: 'center',
-              paddingVertical: 20,
-              fontWeight: '600',
-            }}
-          >
-            Cancel
-          </Text>
-        </ScrollContainer>
-      </Modal>
-    </ScrollContainer>
+                    {!isMobileNumberValid &&
+                        <ReusableInnerWrapper
+                            style={{
+                                justifyContent: 'flex-start',
+                                alignItems: 'flex-start',
+                                width: 308,
+                                height: 15,
+                                marginBottom: 0,
+                                marginTop: 30,
+                            }}
+                        >
+                            <ReusableText
+                                style={{
+                                    color: 'red',
+                                    fontSize: 12,
+                                    textAlign: 'center',
+                                    height: 15,
+                                    lineHeight: 15
+                                }}
+                            >
+                                {mobileNumberError}
+                            </ReusableText>
+                        </ReusableInnerWrapper>
+                    }
+
+                    <ReusableInnerWrapper
+                        style={{
+                            flexDirection: 'row',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            marginTop: !isMobileNumberValid ? 0 : 30,
+                            width: 308,
+                            borderBottomWidth: 1,
+                            borderBottomColor: 'alto',
+                            height: 52,
+                        }}
+                    >
+                        <ReusableInnerWrapper
+                            style={{
+                                marginRight: 5,
+                                marginLeft: 0,
+                            }}
+                        >
+                            <ReusableText
+                                style={{
+                                    height: 32,
+                                    lineHeight: 32
+                                }}
+                            >
+                                {currentCountry && currentCountry.flag}
+                            </ReusableText>
+                        </ReusableInnerWrapper>
+                        <ReusableInnerWrapper
+                            style={{
+                                marginRight: 5,
+                                marginLeft: 5,
+                            }}
+                        >
+                            <ReusableText
+                                style={{
+                                    color: 'raven',
+                                    fontSize: 13,
+                                    textAlign: 'center',
+                                    fontWeight: '600',
+                                    fontFamily: 'Poppins-Regular',
+                                    height: 32,
+                                    lineHeight: 32
+                                }}
+                            >
+                                {currentCountry && currentCountry.dial_code}
+                            </ReusableText>
+                        </ReusableInnerWrapper>
+                        <ReusableInnerWrapper
+                            style={{
+                                width: 15,
+                                height: 20,
+                                marginRight: 2,
+                                marginLeft: 2,
+                            }}
+                        >
+                            <ReusableTile
+                                shadowless={true}
+                                handleTileSelection={() => { showHideModal() }}
+                                style={{
+                                    width: 15,
+                                    height: 20,
+                                }}
+                            >
+                                <ArrowDown />
+                            </ReusableTile>
+                        </ReusableInnerWrapper>
+                        <ReusableInputText
+                            style={{
+                                width: 201,
+                                height: 52,
+                                backgroundColor: 'white',
+                                color: 'raven',
+                                fontSize: 13,
+                                marginBottom: 2
+                            }}
+                            borderless={true}
+                            color={CustomTheme.colors['raven']}
+                            placeholder='Mobile number'
+                            handleTextChange={text => { handleMobileNumber(text) }}
+                            onBlur={text => { handleMobileNumber(text) }}
+                            placeholderTextColor={CustomTheme.colors.mineShaft}
+                            keyboardType='phone-pad'
+                        />
+                    </ReusableInnerWrapper>
+
+                    {error !== "" &&
+                        <ReusableInnerWrapper
+                            style={{
+                                justifyContent: 'flex-start',
+                                alignItems: 'flex-start',
+                                width: 308,
+                                height: 15,
+                                marginBottom: 0,
+                                marginTop: 30,
+                            }}
+                        >
+                            <ReusableText
+                                style={{
+                                    color: 'red',
+                                    fontSize: 12,
+                                    textAlign: 'center',
+                                    height: 15,
+                                    lineHeight: 15
+                                }}
+                            >
+                                {error}
+                            </ReusableText>
+                        </ReusableInnerWrapper>}
+
+                    <ReusableInnerWrapper style={{
+                        flexDirection: 'column',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        backgroundColor: 'white',
+                        width: width,
+                        marginTop: 0
+                    }}>
+                        <ReusableButton
+                            style={{
+                                backgroundColor: isFormValid && isFieldsFilled ? 'cornflowerBlue' : 'athensGray',
+                                textAlign: 'center',
+                                height: 55,
+                                width: CustomTheme.dimensions.buttonWidth,
+                                paddingRight: 68,
+                                borderTopRightRadius: 10,
+                                borderTopLeftRadius: 10,
+                                borderBottomLeftRadius: 10,
+                                borderBottomRightRadius: 10,
+                                marginTop: 50
+                            }}
+                            handleOnPress={() => { submitDetails() }}
+                        >
+                            <ReusableText
+                                style={{
+                                    fontFamily: 'Poppins-Bold',
+                                    fontSize: 14,
+                                    lineHeight: 19,
+                                    color: 'white',
+                                    fontWeight: '700',
+                                    textAlign: 'center'
+                                }}
+                            >
+                                Sign In
+                        </ReusableText>
+                        </ReusableButton>
+                    </ReusableInnerWrapper>
+
+                </ReusableInnerWrapper>
+      </ReusableOuterWrapper>
+    </ReusableScrollView>
   );
-};
-
-export default SignIn;
+}
