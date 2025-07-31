@@ -1,0 +1,1 @@
+export const paging = {page:0 , limit:10}
