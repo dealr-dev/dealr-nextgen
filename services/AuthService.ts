@@ -78,6 +78,10 @@ class AuthService {
     return Auth.currentAuthenticatedUser();
   }
 
+  async getSession(): Promise<any> {
+    return Auth.currentAuthenticatedUser();
+  }
+
   async getCurrentUserDetails(): Promise<any> {
     const user = Auth.currentAuthenticatedUser();
 

@@ -1,13 +1,13 @@
 import api from "../api";
-import sessionService from "../session";
-import {generatePathUrl} from "../utils";
+import { generatePathUrl } from "../utils";
+import sessionService from "./AuthService";
 
 const PATH = '/sellers';
 const NAME = 'sellerMicroserviceAPI';
 
 const getSellers = async (page = 0, size = 20, sort = null) => {
 
-    const user = sessionService.getSession();
+    const user = await sessionService.getSession();
 
     const {attributes} = user;
 
@@ -18,7 +18,7 @@ const getSellers = async (page = 0, size = 20, sort = null) => {
 
 const searchSellers = async (input, page = 0, size = 20, sort = null) => {
 
-    const user = sessionService.getSession();
+    const user = await sessionService.getSession();
 
     const {attributes} = user;
 

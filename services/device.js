@@ -1,5 +1,5 @@
 import api from "../api";
-import deviceInfo from "../device/info";
+//import deviceInfo from "../device/info";
 import { mapFromUserAttributes } from "../utils";
 
 const PATH = '/devices';
@@ -7,7 +7,7 @@ const NAME = 'deviceMicroserviceAPI';
 
 const storeDevice = async (nativetoken, expotoken, authenticatedUser) => {
 
-    let device = {...deviceInfo, nativetoken, expotoken};
+    let device = { nativetoken, expotoken};
 
     const {seller, customer} = mapFromUserAttributes(authenticatedUser.attributes);
 
