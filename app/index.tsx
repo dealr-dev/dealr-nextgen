@@ -11,7 +11,18 @@ export default function WelcomeScreen() {
   const { signIn } = useAuth();
   const { width } = Dimensions.get('window');
 
-  const handleBuyer = () => signIn('buyer');
+  //const handleBuyer = () => signIn('buyer');
+
+  const handleBuyer = () => {
+    router.push({
+      pathname: '/buyer/onboarding/selfie',
+      params: {
+        title: "Let's take a selfie!",
+        step: 0,
+      },
+    });
+  }
+
   const handleSeller = () => signIn('seller');
   const handleExec = () => router.push('/auth/exec-link');
   const handleLogin = () => router.push('/auth/sign-in');
