@@ -1,6 +1,6 @@
 import React from 'react';
 import { View } from 'react-native';
-import { styles } from '../../../../../styles';
+import { styles } from '../../../../styles';
 
 export default function Inner({style, children, safe = false}) {
     if( safe ) {

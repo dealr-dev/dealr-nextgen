@@ -3,7 +3,7 @@ import {
     Fontisto, Ionicons, MaterialCommunityIcons, MaterialIcons
 } from '@expo/vector-icons';
 import React from 'react';
-import CustomTheme from '../../../../theme';
+import CustomTheme from '../../../theme';
 
 export default function Icon({
     iconName, 

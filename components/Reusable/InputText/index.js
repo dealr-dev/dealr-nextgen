@@ -1,10 +1,10 @@
 import React from 'react';
 import {
-    TextInput, TextInputProps,
-    TextStyle,
-    View
+  TextInput, TextInputProps,
+  TextStyle,
+  View
 } from 'react-native';
-import { styles } from '../../../../styles';
+import { styles } from '../../../styles';
 
 interface ReusableInputTextProps extends TextInputProps {
   style?: TextStyle;

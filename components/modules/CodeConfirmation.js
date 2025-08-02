@@ -8,7 +8,7 @@ import {
     useClearByFocusCell
 } from 'react-native-confirmation-code-field';
 import CustomTheme from '../../theme';
-import ReusableInnerWrapper from '../legacy/Reusable/Wrapper/Inner';
+import ReusableInnerWrapper from '../Reusable/Wrapper/Inner';
 
 const { width } = Dimensions.get('window');
 

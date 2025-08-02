@@ -3,7 +3,7 @@ import Diesel from '../../../../assets/img/Features/Diesel';
 import FullLed from '../../../../assets/img/Features/FullLed';
 import Gasoline from '../../../../assets/img/Features/Gasoline';
 import Hybrid from '../../../../assets/img/Features/Hybrid';
-import CustomTheme from '../../../../theme';
+import CustomTheme from '../../../theme';
 import ReusableText from '../Reusable/Text';
 
 const textStyle = {

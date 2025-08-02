@@ -1,9 +1,9 @@
 import React from 'react';
 import {
-  GestureResponderEvent, TouchableOpacity,
-  View
+    GestureResponderEvent, TouchableOpacity,
+    View
 } from 'react-native';
-import { styles } from '../../../../styles';
+import { styles } from '../../../styles';
 
 interface ReusableButtonProps {
   style?: any;

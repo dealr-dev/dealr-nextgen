@@ -4,7 +4,7 @@ import HatchBacks from '../../../../assets/img/Category/HatchBacks';
 import MiniVans from '../../../../assets/img/Category/MiniVans';
 import Sedans from '../../../../assets/img/Category/Sedans';
 import SUVs from '../../../../assets/img/Category/SUVs';
-import CustomTheme from '../../../../theme';
+import CustomTheme from '../../../theme';
 import ReusableText from '../Reusable/Text';
 
 const textStyle = {

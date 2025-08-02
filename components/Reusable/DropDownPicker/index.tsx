@@ -1,9 +1,9 @@
 import { AntDesign } from '@expo/vector-icons';
 import React, { useState } from 'react';
 import {
-  FlatList, Modal, StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback, View
+    FlatList, Modal, StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback, View
 } from 'react-native';
-import CustomTheme from '../../../../theme';
+import CustomTheme from '../../../theme';
 
 interface DropDownItem {
   label: string;

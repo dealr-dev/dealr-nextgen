@@ -1,5 +1,5 @@
 import React from 'react';
-import CustomTheme from '../../../../theme';
+import CustomTheme from '../../../theme';
 import ReusableText from '../Reusable/Text';
 import ReusableTile from '../Reusable/Tile';
 

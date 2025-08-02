@@ -1,6 +1,6 @@
 import React from 'react';
 import { LayoutChangeEvent, SafeAreaView, ViewStyle } from 'react-native';
-import { styles } from '../../../../../styles';
+import { styles } from '../../../../styles';
 
 interface OuterProps {
   style?: ViewStyle;
