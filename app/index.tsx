@@ -15,7 +15,7 @@ export default function WelcomeScreen() {
 
   const handleBuyer = () => {
     router.push({
-      pathname: '/buyer/onboarding/selfie',
+      pathname: '/vehicles',
       params: {
         title: "Let's take a selfie!",
         step: 0,

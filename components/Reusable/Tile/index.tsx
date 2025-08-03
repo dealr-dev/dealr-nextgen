@@ -1,8 +1,9 @@
 import React from 'react';
 import {
-    GestureResponderEvent, Platform, StyleSheet, TouchableOpacity,
-    View, ViewStyle
+  GestureResponderEvent, Platform, TouchableOpacity,
+  View, ViewStyle
 } from 'react-native';
+import { styles } from '../../../styles';
 
 interface TileProps {
   style?: ViewStyle;
@@ -35,7 +36,7 @@ const Tile: React.FC<TileProps> = ({
 
   return (
     <Wrapper
-      style={baseStyle}
+      style={styles(style).button}
       onPress={handleTileSelection}
       activeOpacity={activeOpacity}
     >
@@ -43,22 +44,5 @@ const Tile: React.FC<TileProps> = ({
     </Wrapper>
   );
 };
-
-const styles = StyleSheet.create({
-  tile: {
-    borderRadius: 8,
-    backgroundColor: '#fff',
-    padding: 10,
-  },
-  iosShadow: {
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    shadowColor: '#000',
-  },
-  androidShadow: {
-    elevation: 3,
-  },
-});
 
 export default Tile;

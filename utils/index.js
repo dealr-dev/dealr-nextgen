@@ -66,3 +66,41 @@ export const sortItemsByAsc = (items, field, asc = true) => {
     }
 }
 
+export const generatePathUrl = (page, size, sort, condition, category, budget, base) => {
+    const offset = page * size;
+    const separator = "&";
+    const equater = "=";
+    let filter = `?offset${equater}${offset}${separator}limit${equater}${size}`;
+    if (sort) {
+        const key = Object.keys(sort)[0];
+        filter += separator + key + equater + sort[key];
+    }
+    if (condition) {
+        filter += separator + 'condition' + equater + condition
+    }
+    if (category) {
+        filter += separator + 'vehicletype' + equater + category
+    }
+    if (budget) {
+        filter += separator + 'budget' + equater + budget
+    }
+    return base + filter;
+};
+
+export const generateCustomPathUrl = (attributes, page, size, sort, base) => {
+    const offset = page * size;
+    const separator = "&";
+    const equater = "=";
+    let filter = `?offset${equater}${offset}${separator}limit${equater}${size}`;
+    if (sort) {
+        const key = Object.keys(sort)[0];
+        filter += separator + key + equater + sort[key];
+    }
+    const keys = Object.keys(attributes);
+    const attributefilters = keys.reduce((curr, key) => {
+        curr += separator + key + equater + attributes[key]
+        return curr;
+    }, '');
+    return base + filter + attributefilters;
+};
+
