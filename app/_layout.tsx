@@ -4,6 +4,7 @@ import { useFonts } from 'expo-font';
 import { Stack, useRouter } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect, useState } from 'react';
+import 'react-native-get-random-values';
 import 'react-native-reanimated';
 import { AuthProvider, useAuth } from './context/AuthContext';
 

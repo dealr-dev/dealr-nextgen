@@ -11,9 +11,9 @@ export default function WelcomeScreen() {
   const { signIn } = useAuth();
   const { width } = Dimensions.get('window');
 
-  //const handleBuyer = () => signIn('buyer');
+  const handleBuyer = () => signIn('buyer');
 
-  const handleBuyer = () => {
+  /*const handleBuyer = () => {
     router.push({
       pathname: '/vehicles',
       params: {
@@ -21,7 +21,7 @@ export default function WelcomeScreen() {
         step: 0,
       },
     });
-  }
+  }*/
 
   const handleSeller = () => signIn('seller');
   const handleExec = () => router.push('/auth/exec-link');
