@@ -11,7 +11,7 @@ import ReusableOuterWrapper from '../../../components/Reusable/Wrapper/Outer';
 import CustomTheme from '../../../theme';
 
 
-export default function ExploreScreen() {
+function ExploreScreen() {
   const { width, height } = Dimensions.get('window');
   const router = useRouter();
   const scrollRef = useRef(null);
@@ -163,3 +163,5 @@ export default function ExploreScreen() {
     </ReusableOuterWrapper>
   );
 }
+
+export default ExploreScreen;

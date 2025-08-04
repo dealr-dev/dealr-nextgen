@@ -1,4 +1,5 @@
 import { Amplify } from 'aws-amplify';
+import 'react-native-get-random-values';
 
 Amplify.configure({
   Auth: {
