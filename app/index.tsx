@@ -11,19 +11,26 @@ export default function WelcomeScreen() {
   const { signIn } = useAuth();
   const { width } = Dimensions.get('window');
 
-  const handleBuyer = () => signIn('buyer');
+  //const handleBuyer = () => signIn('buyer');
 
-  /*const handleBuyer = () => {
+  const handleBuyer = () => {
     router.push({
-      pathname: '/vehicles',
+      pathname: '/auth/sign-up',
       params: {
-        title: "Let's take a selfie!",
-        step: 0,
+        role: 'buyer'
       },
     });
-  }*/
+  }
 
-  const handleSeller = () => signIn('seller');
+  const handleSeller = () => {
+    router.push({
+      pathname: '/auth/sign-up',
+      params: {
+        role: 'seller'
+      },
+    });
+  }
+  
   const handleExec = () => router.push('/auth/exec-link');
   const handleLogin = () => router.push('/auth/sign-in');
 

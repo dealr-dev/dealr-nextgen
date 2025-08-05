@@ -1,3 +1,4 @@
+import AuthService from '@/services/AuthService';
 import Constants from 'expo-constants';
 import { useRouter } from 'expo-router';
 import React, { useEffect, useState } from 'react';
@@ -18,6 +19,7 @@ import ReusableScrollView from '../../components/Reusable/Wrapper/ScrollView';
 import CustomTheme from '../../theme';
 import { generateMobileNumber } from '../../utils';
 import CountryDialCodes from '../../utils/CountriesDialInfo';
+
 
 export default function SignIn() {
   //const navigate = useNavigate();
@@ -73,15 +75,14 @@ export default function SignIn() {
   const isFieldsFilled = mobileNumber;
 
   const submitDetails = async () => {
-    setError("");
     if (isFormValid && isFieldsFilled) {
       try {
-        
+        setError("");
         setLoading(true);
         const phoneNumber = generateMobileNumber(currentCountry.dial_code, mobileNumber);
         console.log('Logging in with:', phoneNumber);
 
-        //const user = await AuthService.signIn(phoneNumber);
+        await AuthService.signIn(phoneNumber);
         setLoading(false);
 
         router.push({
@@ -90,6 +91,7 @@ export default function SignIn() {
         })
       }
       catch (e) {
+          console.log('Error', e);
         setError(e.message);
         setLoading(false);
       }

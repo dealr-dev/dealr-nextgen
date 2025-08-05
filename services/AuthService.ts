@@ -34,6 +34,10 @@ class AuthService {
       role,
     });
 
+    const { session } = signUpRes.data;
+    await AsyncStorage.setItem('session', session);
+    await AsyncStorage.setItem('username', cellphone);
+
     return signUpRes.data;
   }
 
@@ -60,7 +64,7 @@ class AuthService {
       session,
       username,
     });
-
+console.log('Challenge RES', res);
     const { idToken, accessToken, refreshToken } = res.data;
 
     await AsyncStorage.setItem('idToken', idToken);

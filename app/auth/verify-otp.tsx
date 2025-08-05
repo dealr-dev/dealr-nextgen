@@ -1,5 +1,5 @@
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Dimensions, KeyboardAvoidingView, StyleSheet } from 'react-native';
 import CodeConfirmation from '../../components/modules/CodeConfirmation';
 import ProgressBar from '../../components/nav/ProgressBar';
@@ -25,19 +25,22 @@ export default function Screen() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const [user, setUser] = useState(null); 
-
   const {phoneNumber, fromRoute} = useLocalSearchParams();
 
   const verify = async() => {
     try {
       setError("");
       setLoading(true);
-      await AuthService.sendCustomChallengeAnswer(user, value);
-
-      //const details = await AuthService.getCurrentUserDetails();
-      //console.log(details);
+      await AuthService.completeChallenge(value);
       setLoading(false);
+
+      router.push({
+        pathname: '/buyer/onboarding/selfie',
+        params: {
+          title: 'verify your id',
+          step: 0,
+        },
+      })
     }
     catch (e) {
       setError(e.message);
@@ -50,9 +53,7 @@ export default function Screen() {
     try {
       setError("");
       setLoading(true);
-      const user = await AuthService.signIn(phoneNumber);
-      console.log('USER', user);
-      setUser(user);
+      await AuthService.signIn(phoneNumber);
       setLoading(false);
     }
     catch (e) {
@@ -69,25 +70,6 @@ export default function Screen() {
         return 'Sign In';
     }
   }
-
-  useEffect(() => {
-      if (counter > 0) {
-          const timer = setTimeout(() => {
-              setCounter(counter - 1);
-          }, 1500);
-          return () => {
-              clearTimeout(timer);
-          };
-      }
-  }, [counter]);
-
-  useEffect(() => {
-    async function load() {
-      await resend();
-    }
-
-    load();
-  }, []);
 
   return (
     <KeyboardAvoidingView
