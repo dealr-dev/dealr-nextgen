@@ -18,7 +18,7 @@ import CountryDialCodes from '@/utils/CountriesDialInfo';
 import Constants from 'expo-constants';
 import { useRouter } from 'expo-router';
 import React, { useEffect, useState } from 'react';
-import { Dimensions, FlatList, Modal } from 'react-native';
+import { Dimensions, FlatList, KeyboardAvoidingView, Modal } from 'react-native';
 
 
 export default function SignUp() {
@@ -133,531 +133,542 @@ export default function SignUp() {
   };
 
   return (
-    <ReusableScrollView>
-            <ReusableOuterWrapper
-                style={{
-                    backgroundColor: 'white',
-                    marginBottom: 80,
-                    justifyContent: 'flex-start'
-                }}
-            >
-                <ScreenTopNav
-                    style={{
-                        width: width,
-                        justifyContent: 'flex-start'
-                    }}
-                >
-                    <ReusableInnerWrapper>
-                        <BackButton
-                            iconName="arrowleft"
-                            handleOnPress={() => { router.back }}
-                            iconSize={20}
-                            iconColor={CustomTheme.colors.cornflowerBlue}
-                        />
-                    </ReusableInnerWrapper>
-                    <ReusableInnerWrapper style={{
-                        position: 'relative',
-                        left: 13
-                    }}>
-                        <ReusableText
-                            style={{
-                                textTransform: 'uppercase',
-                                fontFamily: 'BebasNeue-Regular',
-                                color: 'black',
-                                fontSize: 24,
-                                marginTop: 16,
-                                marginBottom: 16,
-                                height: 29,
-                                lineHeight: 29
-                            }}
-                        >
-                            sign up
-                        </ReusableText>
-                    </ReusableInnerWrapper>
-                </ScreenTopNav>
+    <KeyboardAvoidingView
+            style={{
+                flex: 1,
+                flexDirection: 'column',
+                justifyContent: 'center',
+            }}
+            behavior="padding"
+            enabled
+            keyboardVerticalOffset={10}
+        >
+      <ReusableScrollView>
+              <ReusableOuterWrapper
+                  style={{
+                      backgroundColor: 'white',
+                      marginBottom: 80,
+                      justifyContent: 'flex-start'
+                  }}
+              >
+                  <ScreenTopNav
+                      style={{
+                          width: width,
+                          justifyContent: 'flex-start'
+                      }}
+                  >
+                      <ReusableInnerWrapper>
+                          <BackButton
+                              iconName="arrowleft"
+                              handleOnPress={() => { router.back }}
+                              iconSize={20}
+                              iconColor={CustomTheme.colors.cornflowerBlue}
+                          />
+                      </ReusableInnerWrapper>
+                      <ReusableInnerWrapper style={{
+                          position: 'relative',
+                          left: 13
+                      }}>
+                          <ReusableText
+                              style={{
+                                  textTransform: 'uppercase',
+                                  fontFamily: 'BebasNeue-Regular',
+                                  color: 'black',
+                                  fontSize: 24,
+                                  marginTop: 16,
+                                  marginBottom: 16,
+                                  height: 29,
+                                  lineHeight: 29
+                              }}
+                          >
+                              sign up
+                          </ReusableText>
+                      </ReusableInnerWrapper>
+                  </ScreenTopNav>
 
-                <ProgressBar step={5} />
+                  <ProgressBar step={5} />
 
-                {loading && <Loader />}
+                  {loading && <Loader />}
 
-                <ReusableInnerWrapper
-                    style={{
-                        height: 27,
-                        flexDirection: 'row',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        marginTop: 85,
-                        marginLeft: 'auto',
-                        marginRight: 'auto',
-                    }}
-                >
-                    <ReusableText
-                        style={{
-                            fontFamily: 'Poppins-Bold',
-                            color: 'black',
-                            fontSize: 22,
-                            height: 27,
-                            lineHeight: 27
-                        }}
-                    >
-                        Just your basic details
-                    </ReusableText>
-                </ReusableInnerWrapper>
+                  <ReusableInnerWrapper
+                      style={{
+                          height: 27,
+                          flexDirection: 'row',
+                          justifyContent: 'center',
+                          alignItems: 'center',
+                          marginTop: 85,
+                          marginLeft: 'auto',
+                          marginRight: 'auto',
+                      }}
+                  >
+                      <ReusableText
+                          style={{
+                              fontFamily: 'Poppins-Bold',
+                              color: 'black',
+                              fontSize: 22,
+                              height: 27,
+                              lineHeight: 27
+                          }}
+                      >
+                          Just your basic details
+                      </ReusableText>
+                  </ReusableInnerWrapper>
 
-                <ReusableInnerWrapper
-                    style={{
-                        flexDirection: 'column',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        marginTop: 58,
-                        marginLeft: 'auto',
-                        marginRight: 'auto'
-                    }}
-                >
+                  <ReusableInnerWrapper
+                      style={{
+                          flexDirection: 'column',
+                          justifyContent: 'center',
+                          alignItems: 'center',
+                          marginTop: 58,
+                          marginLeft: 'auto',
+                          marginRight: 'auto'
+                      }}
+                  >
 
-                    {apiError !== '' && <ReusableInnerWrapper style={{
-                        flexDirection: 'column',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        backgroundColor: 'white',
-                        width: width,
-                        marginTop: 26
-                    }}>
-                        <ReusableText
-                            style={{
-                                fontFamily: 'Poppins-Regular',
-                                fontSize: 13,
-                                lineHeight: 19,
-                                height: 19,
-                                color: 'error',
-                                textAlign: 'center'
-                            }}
-                        >
-                            {apiError}
-                        </ReusableText>
-                    </ReusableInnerWrapper>}
+                      {apiError !== '' && <ReusableInnerWrapper style={{
+                          flexDirection: 'column',
+                          justifyContent: 'center',
+                          alignItems: 'center',
+                          backgroundColor: 'white',
+                          width: width,
+                          marginTop: 26
+                      }}>
+                          <ReusableText
+                              style={{
+                                  fontFamily: 'Poppins-Regular',
+                                  fontSize: 13,
+                                  lineHeight: 19,
+                                  height: 19,
+                                  color: 'error',
+                                  textAlign: 'center'
+                              }}
+                          >
+                              {apiError}
+                          </ReusableText>
+                      </ReusableInnerWrapper>}
 
-                    {!isFullNameValid &&
-                        <ReusableInnerWrapper
-                            style={{
-                                justifyContent: 'flex-start',
-                                alignItems: 'flex-start',
-                                width: 308,
-                                height: 15,
-                                marginBottom: 0,
-                                marginTop: 0,
-                            }}
-                        >
-                            <ReusableText
-                                style={{
-                                    color: 'red',
-                                    fontSize: 12,
-                                    textAlign: 'center',
-                                    lineHeight: 19,
-                                    height: 19,
-                                }}
-                            >
-                                {fullNameError}
-                            </ReusableText>
-                        </ReusableInnerWrapper>
-                    }
+                      {!isFullNameValid &&
+                          <ReusableInnerWrapper
+                              style={{
+                                  justifyContent: 'flex-start',
+                                  alignItems: 'flex-start',
+                                  width: 308,
+                                  height: 15,
+                                  marginBottom: 0,
+                                  marginTop: 0,
+                              }}
+                          >
+                              <ReusableText
+                                  style={{
+                                      color: 'red',
+                                      fontSize: 12,
+                                      textAlign: 'center',
+                                      lineHeight: 19,
+                                      height: 19,
+                                  }}
+                              >
+                                  {fullNameError}
+                              </ReusableText>
+                          </ReusableInnerWrapper>
+                      }
 
-                    {isFullNameValid &&
-                        <ReusableInnerWrapper
-                            style={{
-                                justifyContent: 'flex-start',
-                                alignItems: 'flex-start',
-                                width: 308,
-                                height: 15,
-                                marginBottom: 0,
-                                marginTop: 0,
-                            }}
-                        >
-                            <ReusableText
-                                style={{
-                                    color: 'raven',
-                                    fontSize: 10,
-                                    textAlign: 'center',
-                                    lineHeight: 19,
-                                    height: 19,
-                                }}
-                            >
-                                Your name
-                            </ReusableText>
-                        </ReusableInnerWrapper>
-                    }
+                      {isFullNameValid &&
+                          <ReusableInnerWrapper
+                              style={{
+                                  justifyContent: 'flex-start',
+                                  alignItems: 'flex-start',
+                                  width: 308,
+                                  height: 15,
+                                  marginBottom: 0,
+                                  marginTop: 0,
+                              }}
+                          >
+                              <ReusableText
+                                  style={{
+                                      color: 'raven',
+                                      fontSize: 10,
+                                      textAlign: 'center',
+                                      lineHeight: 19,
+                                      height: 19,
+                                  }}
+                              >
+                                  Your name
+                              </ReusableText>
+                          </ReusableInnerWrapper>
+                      }
 
-                    <ReusableInnerWrapper
-                        style={{
-                            flexDirection: 'row',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            marginTop: 0,
-                            width: 308,
-                            borderBottomWidth: 1,
-                            borderBottomColor: 'alto',
-                            height: 52,
-                        }}
-                    >
-                        <ReusableInputText
-                            style={{
-                                width: 308,
-                                height: 52,
-                                backgroundColor: 'white',
-                                color: 'raven',
-                                fontSize: 13,
-                                marginBottom: 2
-                            }}
-                            borderless={true}
-                            color={CustomTheme.colors['raven']}
-                            placeholder="Your name"
-                            handleTextChange={text => { }}
-                            onBlur={text => {  }}
-                            placeholderTextColor={CustomTheme.colors.mineShaft}
-                            onRef={null}
-                        />
-                    </ReusableInnerWrapper>
+                      <ReusableInnerWrapper
+                          style={{
+                              flexDirection: 'row',
+                              justifyContent: 'center',
+                              alignItems: 'center',
+                              marginTop: 0,
+                              width: 308,
+                              borderBottomWidth: 1,
+                              borderBottomColor: 'alto',
+                              height: 52,
+                          }}
+                      >
+                          <ReusableInputText
+                              style={{
+                                  width: 308,
+                                  height: 52,
+                                  backgroundColor: 'white',
+                                  color: 'raven',
+                                  fontSize: 13,
+                                  marginBottom: 2
+                              }}
+                              borderless={true}
+                              color={CustomTheme.colors['raven']}
+                              placeholder="Your name"
+                              handleTextChange={text => { }}
+                              onBlur={text => {  }}
+                              placeholderTextColor={CustomTheme.colors.mineShaft}
+                              onRef={null}
+                          />
+                      </ReusableInnerWrapper>
 
-                    {!isEmailValid &&
-                        <ReusableInnerWrapper
-                            style={{
-                                justifyContent: 'flex-start',
-                                alignItems: 'flex-start',
-                                width: 308,
-                                height: 15,
-                                marginBottom: 0,
-                                marginTop: 15,
-                            }}
-                        >
-                            <ReusableText
-                                style={{
-                                    color: 'red',
-                                    fontSize: 12,
-                                    textAlign: 'center',
-                                    lineHeight: 19,
-                                    height: 19
-                                }}
-                            >
-                                {emailError}
-                            </ReusableText>
-                        </ReusableInnerWrapper>
-                    }
+                      {!isEmailValid &&
+                          <ReusableInnerWrapper
+                              style={{
+                                  justifyContent: 'flex-start',
+                                  alignItems: 'flex-start',
+                                  width: 308,
+                                  height: 15,
+                                  marginBottom: 0,
+                                  marginTop: 15,
+                              }}
+                          >
+                              <ReusableText
+                                  style={{
+                                      color: 'red',
+                                      fontSize: 12,
+                                      textAlign: 'center',
+                                      lineHeight: 19,
+                                      height: 19
+                                  }}
+                              >
+                                  {emailError}
+                              </ReusableText>
+                          </ReusableInnerWrapper>
+                      }
 
-                    {isEmailValid &&
-                        <ReusableInnerWrapper
-                            style={{
-                                justifyContent: 'flex-start',
-                                alignItems: 'flex-start',
-                                width: 308,
-                                height: 15,
-                                marginBottom: 0,
-                                marginTop: 15,
-                            }}
-                        >
-                            <ReusableText
-                                style={{
-                                    color: 'raven',
-                                    fontSize: 10,
-                                    textAlign: 'center',
-                                    lineHeight: 19,
-                                    height: 19
-                                }}
-                            >
-                                Your email
-                        </ReusableText>
-                        </ReusableInnerWrapper>
-                    }
+                      {isEmailValid &&
+                          <ReusableInnerWrapper
+                              style={{
+                                  justifyContent: 'flex-start',
+                                  alignItems: 'flex-start',
+                                  width: 308,
+                                  height: 15,
+                                  marginBottom: 0,
+                                  marginTop: 15,
+                              }}
+                          >
+                              <ReusableText
+                                  style={{
+                                      color: 'raven',
+                                      fontSize: 10,
+                                      textAlign: 'center',
+                                      lineHeight: 19,
+                                      height: 19
+                                  }}
+                              >
+                                  Your email
+                          </ReusableText>
+                          </ReusableInnerWrapper>
+                      }
 
-                    <ReusableInnerWrapper
-                        style={{
-                            flexDirection: 'row',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            marginTop: 0,
-                            width: 308,
-                            borderBottomWidth: 1,
-                            borderBottomColor: 'alto',
-                            height: 52,
-                        }}
-                    >
-                        <ReusableInputText
-                            style={{
-                                width: 308,
-                                height: 52,
-                                backgroundColor: 'white',
-                                color: 'raven',
-                                fontSize: 13,
-                                marginBottom: 2
-                            }}
-                            borderless={true}
-                            type="email"
-                            color={CustomTheme.colors['raven']}
-                            placeholder="Your email"
-                            handleTextChange={text => {  }}
-                            onBlur={text => {  }}
-                            placeholderTextColor={CustomTheme.colors.mineShaft}
-                            keyboardType='email-address'
-                        />
-                    </ReusableInnerWrapper>
+                      <ReusableInnerWrapper
+                          style={{
+                              flexDirection: 'row',
+                              justifyContent: 'center',
+                              alignItems: 'center',
+                              marginTop: 0,
+                              width: 308,
+                              borderBottomWidth: 1,
+                              borderBottomColor: 'alto',
+                              height: 52,
+                          }}
+                      >
+                          <ReusableInputText
+                              style={{
+                                  width: 308,
+                                  height: 52,
+                                  backgroundColor: 'white',
+                                  color: 'raven',
+                                  fontSize: 13,
+                                  marginBottom: 2
+                              }}
+                              borderless={true}
+                              type="email"
+                              color={CustomTheme.colors['raven']}
+                              placeholder="Your email"
+                              handleTextChange={text => {  }}
+                              onBlur={text => {  }}
+                              placeholderTextColor={CustomTheme.colors.mineShaft}
+                              keyboardType='email-address'
+                          />
+                      </ReusableInnerWrapper>
 
-                    {!isMobileNumberValid &&
-                        <ReusableInnerWrapper
-                            style={{
-                                justifyContent: 'flex-start',
-                                alignItems: 'flex-start',
-                                width: 308,
-                                height: 15,
-                                marginBottom: 0,
-                                marginTop: 30,
-                            }}
-                        >
-                            <ReusableText
-                                style={{
-                                    color: 'red',
-                                    fontSize: 12,
-                                    textAlign: 'center',
-                                    lineHeight: 19,
-                                    height: 19
-                                }}
-                            >
-                                {mobileNumberError}
-                            </ReusableText>
-                        </ReusableInnerWrapper>
-                    }
+                      {!isMobileNumberValid &&
+                          <ReusableInnerWrapper
+                              style={{
+                                  justifyContent: 'flex-start',
+                                  alignItems: 'flex-start',
+                                  width: 308,
+                                  height: 15,
+                                  marginBottom: 0,
+                                  marginTop: 30,
+                              }}
+                          >
+                              <ReusableText
+                                  style={{
+                                      color: 'red',
+                                      fontSize: 12,
+                                      textAlign: 'center',
+                                      lineHeight: 19,
+                                      height: 19
+                                  }}
+                              >
+                                  {mobileNumberError}
+                              </ReusableText>
+                          </ReusableInnerWrapper>
+                      }
 
-                    {isMobileNumberValid &&
-                        <ReusableInnerWrapper
-                            style={{
-                                justifyContent: 'flex-start',
-                                alignItems: 'flex-start',
-                                width: 308,
-                                height: 15,
-                                marginBottom: 0,
-                                marginTop: 15,
-                            }}
-                        >
-                            <ReusableText
-                                style={{
-                                    color: 'raven',
-                                    fontSize: 10,
-                                    textAlign: 'center',
-                                    lineHeight: 19,
-                                    height: 19
-                                }}
-                            >
-                                Mobile number
-                        </ReusableText>
-                        </ReusableInnerWrapper>
-                    }
+                      {isMobileNumberValid &&
+                          <ReusableInnerWrapper
+                              style={{
+                                  justifyContent: 'flex-start',
+                                  alignItems: 'flex-start',
+                                  width: 308,
+                                  height: 15,
+                                  marginBottom: 0,
+                                  marginTop: 15,
+                              }}
+                          >
+                              <ReusableText
+                                  style={{
+                                      color: 'raven',
+                                      fontSize: 10,
+                                      textAlign: 'center',
+                                      lineHeight: 19,
+                                      height: 19
+                                  }}
+                              >
+                                  Mobile number
+                          </ReusableText>
+                          </ReusableInnerWrapper>
+                      }
 
-                    <ReusableInnerWrapper
-                        style={{
-                            flexDirection: 'row',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            marginTop: 0,
-                            width: 308,
-                            borderBottomWidth: 1,
-                            borderBottomColor: 'alto',
-                            height: 52,
-                        }}
-                    >
-                        <ReusableTile
-                            shadowless={true}
-                            handleTileSelection={() => { toggleModal() }}>
-                            <ReusableInnerWrapper
-                                style={{
-                                    marginRight: 5,
-                                    marginLeft: 0,
-                                }}
-                            >
-                                <ReusableText
-                                    style={{
-                                        lineHeight: 24
-                                    }}
-                                >
-                                    {currentCountry && currentCountry.flag}
-                                </ReusableText>
-                            </ReusableInnerWrapper>
-                            <ReusableInnerWrapper
-                                style={{
-                                    marginRight: 5,
-                                    marginLeft: 5,
-                                }}
-                            >
-                                <ReusableText
-                                    style={{
-                                        color: 'raven',
-                                        fontSize: 13,
-                                        textAlign: 'center',
-                                        fontWeight: '600',
-                                        fontFamily: 'Poppins-Regular',
-                                        lineHeight: 24
-                                    }}
-                                >
-                                    {currentCountry && currentCountry.dial_code}
-                                </ReusableText>
-                            </ReusableInnerWrapper>
-                        </ReusableTile>
-                        <ReusableInnerWrapper
-                            style={{
-                                width: 15,
-                                height: 20,
-                                marginRight: 2,
-                                marginLeft: 2,
-                            }}
-                        >
-                            <ReusableTile
-                                shadowless={true}
-                                handleTileSelection={() => { toggleModal() }}
-                                style={{
-                                    width: 15,
-                                    height: 20,
-                                }}
-                            >
-                                <ArrowDown />
-                            </ReusableTile>
-                        </ReusableInnerWrapper>
-                        <ReusableInputText
-                            style={{
-                                width: 201,
-                                height: 52,
-                                backgroundColor: 'white',
-                                color: 'raven',
-                                fontSize: 13,
-                                marginBottom: 2
-                            }}
-                            borderless={true}
-                            color={CustomTheme.colors['raven']}
-                            placeholder="Mobile number"
-                            handleTextChange={text => {}}
-                            onBlur={text => {  }}
-                            placeholderTextColor={CustomTheme.colors.mineShaft}
-                            onRef={null}
-                            keyboardType='phone-pad'
-                        />
-                    </ReusableInnerWrapper>
+                      <ReusableInnerWrapper
+                          style={{
+                              flexDirection: 'row',
+                              justifyContent: 'center',
+                              alignItems: 'center',
+                              marginTop: 0,
+                              width: 308,
+                              borderBottomWidth: 1,
+                              borderBottomColor: 'alto',
+                              height: 52,
+                          }}
+                      >
+                          <ReusableTile
+                              shadowless={true}
+                              handleTileSelection={() => { toggleModal() }}>
+                              <ReusableInnerWrapper
+                                  style={{
+                                      marginRight: 5,
+                                      marginLeft: 0,
+                                  }}
+                              >
+                                  <ReusableText
+                                      style={{
+                                          lineHeight: 24
+                                      }}
+                                  >
+                                      {currentCountry && currentCountry.flag}
+                                  </ReusableText>
+                              </ReusableInnerWrapper>
+                              <ReusableInnerWrapper
+                                  style={{
+                                      marginRight: 5,
+                                      marginLeft: 5,
+                                  }}
+                              >
+                                  <ReusableText
+                                      style={{
+                                          color: 'raven',
+                                          fontSize: 13,
+                                          textAlign: 'center',
+                                          fontWeight: '600',
+                                          fontFamily: 'Poppins-Regular',
+                                          lineHeight: 24
+                                      }}
+                                  >
+                                      {currentCountry && currentCountry.dial_code}
+                                  </ReusableText>
+                              </ReusableInnerWrapper>
+                          </ReusableTile>
+                          <ReusableInnerWrapper
+                              style={{
+                                  width: 15,
+                                  height: 20,
+                                  marginRight: 2,
+                                  marginLeft: 2,
+                              }}
+                          >
+                              <ReusableTile
+                                  shadowless={true}
+                                  handleTileSelection={() => { toggleModal() }}
+                                  style={{
+                                      width: 15,
+                                      height: 20,
+                                  }}
+                              >
+                                  <ArrowDown />
+                              </ReusableTile>
+                          </ReusableInnerWrapper>
+                          <ReusableInputText
+                              style={{
+                                  width: 201,
+                                  height: 52,
+                                  backgroundColor: 'white',
+                                  color: 'raven',
+                                  fontSize: 13,
+                                  marginBottom: 2
+                              }}
+                              borderless={true}
+                              color={CustomTheme.colors['raven']}
+                              placeholder="Mobile number"
+                              handleTextChange={text => {}}
+                              onBlur={text => {  }}
+                              placeholderTextColor={CustomTheme.colors.mineShaft}
+                              onRef={null}
+                              keyboardType='phone-pad'
+                          />
+                      </ReusableInnerWrapper>
 
-                    <Modal
-                        animationType='slide'
-                        transparent={false}
-                        visible={showModal}>
-                        <ReusableInnerWrapper
-                            safe={true}
-                            style={{
-                                backgroundColor: '#fff',
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                                marginTop: Constants.statusBarHeight,
-                            }}
-                        >
-                            <ReusableInnerWrapper>
-                                {/* {countries.map(e => {
-                                        return <TouchableOpacity onPress={() => selectCountry(e.name)}><Text>{e.flag} {e.name} ({e.dial_code})</Text></TouchableOpacity>
-                                    })} */}
-                                <FlatList
-                                    data={countries}
-                                    keyExtractor={(_, index) => index.toString()}
-                                    renderItem={({ item, index }) =>
-                                        <ReusableTile shadowless={true} handleTileSelection={() => selectCountry(item.name)}>
-                                            <ReusableInnerWrapper
-                                                style={{
-                                                    width: width,
-                                                    paddingTop: 10,
-                                                    paddingBottom: 10,
-                                                    backgroundColor: index % 2 == 0 ? 'gallery' : 'white'
-                                                }}
-                                            >
-                                                <ReusableText
-                                                    style={{
-                                                        textAlign: 'left',
-                                                        height: 25,
-                                                        lineHeight: 25,
-                                                    }}
-                                                >
-                                                    {item.flag} {item.name} ({item.dial_code})
-                                            </ReusableText>
-                                            </ReusableInnerWrapper>
-                                        </ReusableTile>
-                                    }
-                                />
-                                <ReusableInnerWrapper
-                                    style={{
-                                        backgroundColor: 'cornflowerBlue',
-                                        paddingTop: 20,
-                                        width: width,
-                                        paddingBottom: 20,
-                                    }}
-                                >
-                                    <ReusableTile
-                                        shadowless={true}
-                                        handleTileSelection={() => { toggleModal() }}
-                                    >
-                                        <ReusableIcon
-                                            iconName='arrow-left'
-                                            iconSize={20}
-                                            iconColor='white'
-                                            style={{
-                                                marginRight: 10
-                                            }}
-                                        />
-                                        <ReusableText
-                                            style={{
-                                                color: 'white',
-                                                fontSize: 16,
-                                                textAlign: 'center',
-                                                fontWeight: '600',
-                                                fontFamily: 'Poppins-Bold',
-                                                marginLeft: 10
-                                            }}
-                                        >
-                                            Cancel
-                                    </ReusableText>
-                                    </ReusableTile>
-                                </ReusableInnerWrapper>
-                            </ReusableInnerWrapper>
-                        </ReusableInnerWrapper>
-                    </Modal>
+                      <Modal
+                          animationType='slide'
+                          transparent={false}
+                          visible={showModal}>
+                          <ReusableInnerWrapper
+                              safe={true}
+                              style={{
+                                  backgroundColor: '#fff',
+                                  justifyContent: 'center',
+                                  alignItems: 'center',
+                                  marginTop: Constants.statusBarHeight,
+                              }}
+                          >
+                              <ReusableInnerWrapper>
+                                  {/* {countries.map(e => {
+                                          return <TouchableOpacity onPress={() => selectCountry(e.name)}><Text>{e.flag} {e.name} ({e.dial_code})</Text></TouchableOpacity>
+                                      })} */}
+                                  <FlatList
+                                      data={countries}
+                                      keyExtractor={(_, index) => index.toString()}
+                                      renderItem={({ item, index }) =>
+                                          <ReusableTile shadowless={true} handleTileSelection={() => selectCountry(item.name)}>
+                                              <ReusableInnerWrapper
+                                                  style={{
+                                                      width: width,
+                                                      paddingTop: 10,
+                                                      paddingBottom: 10,
+                                                      backgroundColor: index % 2 == 0 ? 'gallery' : 'white'
+                                                  }}
+                                              >
+                                                  <ReusableText
+                                                      style={{
+                                                          textAlign: 'left',
+                                                          height: 25,
+                                                          lineHeight: 25,
+                                                      }}
+                                                  >
+                                                      {item.flag} {item.name} ({item.dial_code})
+                                              </ReusableText>
+                                              </ReusableInnerWrapper>
+                                          </ReusableTile>
+                                      }
+                                  />
+                                  <ReusableInnerWrapper
+                                      style={{
+                                          backgroundColor: 'cornflowerBlue',
+                                          paddingTop: 20,
+                                          width: width,
+                                          paddingBottom: 20,
+                                      }}
+                                  >
+                                      <ReusableTile
+                                          shadowless={true}
+                                          handleTileSelection={() => { toggleModal() }}
+                                      >
+                                          <ReusableIcon
+                                              iconName='arrow-left'
+                                              iconSize={20}
+                                              iconColor='white'
+                                              style={{
+                                                  marginRight: 10
+                                              }}
+                                          />
+                                          <ReusableText
+                                              style={{
+                                                  color: 'white',
+                                                  fontSize: 16,
+                                                  textAlign: 'center',
+                                                  fontWeight: '600',
+                                                  fontFamily: 'Poppins-Bold',
+                                                  marginLeft: 10
+                                              }}
+                                          >
+                                              Cancel
+                                      </ReusableText>
+                                      </ReusableTile>
+                                  </ReusableInnerWrapper>
+                              </ReusableInnerWrapper>
+                          </ReusableInnerWrapper>
+                      </Modal>
 
-                    <ReusableInnerWrapper style={{
-                        flexDirection: 'column',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        backgroundColor: 'white',
-                        width: width,
-                        marginTop: 0
-                    }}>
-                        <ReusableButton
-                            style={{
-                                backgroundColor: isFormValid && isFieldsFilled ? 'cornflowerBlue' : 'athensGray',
-                                textAlign: 'center',
-                                height: 55,
-                                width: CustomTheme.dimensions.buttonWidth,
-                                paddingRight: 68,
-                                borderTopRightRadius: 10,
-                                borderTopLeftRadius: 10,
-                                borderBottomLeftRadius: 10,
-                                borderBottomRightRadius: 10,
-                                marginTop: 50
-                            }}
-                            handleOnPress={() => { submitDetails() }}
-                        >
-                            <ReusableText
-                                style={{
-                                    fontFamily: 'Poppins-Bold',
-                                    fontSize: 14,
-                                    lineHeight: 19,
-                                    color: 'white',
-                                    fontWeight: '700',
-                                    textAlign: 'center'
-                                }}
-                            >
-                                Next
-                        </ReusableText>
-                        </ReusableButton>
-                    </ReusableInnerWrapper>
-                </ReusableInnerWrapper>
-            </ReusableOuterWrapper>
-        </ReusableScrollView>
+                      <ReusableInnerWrapper style={{
+                          flexDirection: 'column',
+                          justifyContent: 'center',
+                          alignItems: 'center',
+                          backgroundColor: 'white',
+                          width: width,
+                          marginTop: 0
+                      }}>
+                          <ReusableButton
+                              style={{
+                                  backgroundColor: isFormValid && isFieldsFilled ? 'cornflowerBlue' : 'athensGray',
+                                  textAlign: 'center',
+                                  height: 55,
+                                  width: CustomTheme.dimensions.buttonWidth,
+                                  paddingRight: 68,
+                                  borderTopRightRadius: 10,
+                                  borderTopLeftRadius: 10,
+                                  borderBottomLeftRadius: 10,
+                                  borderBottomRightRadius: 10,
+                                  marginTop: 50
+                              }}
+                              handleOnPress={() => { submitDetails() }}
+                          >
+                              <ReusableText
+                                  style={{
+                                      fontFamily: 'Poppins-Bold',
+                                      fontSize: 14,
+                                      lineHeight: 19,
+                                      color: 'white',
+                                      fontWeight: '700',
+                                      textAlign: 'center'
+                                  }}
+                              >
+                                  Next
+                          </ReusableText>
+                          </ReusableButton>
+                      </ReusableInnerWrapper>
+                  </ReusableInnerWrapper>
+              </ReusableOuterWrapper>
+          </ReusableScrollView>
+        </KeyboardAvoidingView>
   );
 }
