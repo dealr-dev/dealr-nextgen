@@ -1,6 +1,6 @@
+import ReusableTile from '@/components/Reusable/Tile';
+import CustomTheme from '@/theme';
 import React from 'react';
-import CustomTheme from '../../../theme';
-import ReusableTile from '../Reusable/Tile';
 
 export default function IconButton({children, handleTileSelection}) {
     return (

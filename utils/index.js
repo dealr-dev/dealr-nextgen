@@ -1,3 +1,4 @@
+import moment from 'moment';
 import { Alert, Linking, Platform } from 'react-native';
 
 export const openMaps = (latitude, longitude, label = 'Location') => {
@@ -28,10 +29,6 @@ export const generateMobileNumber = (code, mobilenumber) => {
     return `${code}${mobilenumber}`;
 }
 
-export const highlightSelectedTile = (arr, i) => {
-    return arr.length > 0 && arr.includes(i);
-}
-
 export const capitalizeWord = word => {
     if (!word) {
         return '';
@@ -39,6 +36,10 @@ export const capitalizeWord = word => {
         const capitalizedWord = (word).toString().split('');
         return capitalizedWord[0].toUpperCase() + (word).toString().substring(1);
     }
+}
+
+export const highlightSelectedTile = (arr, i) => {
+    return arr.length > 0 && arr.includes(i);
 }
 
 const ID = () => Math.floor(Math.random() * 100);
@@ -103,4 +104,18 @@ export const generateCustomPathUrl = (attributes, page, size, sort, base) => {
     }, '');
     return base + filter + attributefilters;
 };
+
+export const getDates = () => {
+    return [0, 1, 2, 3, 4, 5].map((item, index) => {
+        return item === 0 ? {
+            "id": `date-field-${index}`,
+            "display": "TODAY",
+            "date": moment().add(item, 'days').format("YYYY-MM-DD")
+        } : {
+            "id": `date-field-${index}`,
+            "display": moment().add(item, 'days').format("ddd DD MMM"),
+            "date": moment().add(item, 'days').format("YYYY-MM-DD")
+        }
+    })
+}
 

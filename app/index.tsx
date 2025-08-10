@@ -24,7 +24,7 @@ export default function WelcomeScreen() {
 
   const handleSeller = () => {
     router.push({
-      pathname: '/executive/all-set',
+      pathname: '/vehicle/67ef0ea4d856690008542c8e',
       params: {
         role: 'seller'
       },

@@ -1,6 +1,6 @@
+import ReusableButton from '@/components/Reusable/Button';
+import ReusableText from '@/components/Reusable/Text';
 import React from 'react';
-import ReusableButton from '../Reusable/Button';
-import ReusableText from '../Reusable/Text';
 
 export default function PrimaryButton({text, textColor, handleButtonClick, bgColor, disabled}) {
     return (

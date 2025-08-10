@@ -1,7 +1,7 @@
+import ReusableText from '@/components/Reusable/Text';
+import ReusableTile from '@/components/Reusable/Tile';
+import CustomTheme from '@/theme';
 import React from 'react';
-import CustomTheme from '../../../theme';
-import ReusableText from '../Reusable/Text';
-import ReusableTile from '../Reusable/Tile';
 
 export default function Button({time, handleTimeSelection, selected, greyedOut}) {
     const bgColor = () => {
