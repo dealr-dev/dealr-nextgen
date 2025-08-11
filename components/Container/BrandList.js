@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { Animated, Dimensions, FlatList } from "react-native";
+import CarouselItem from '@/components/Core/CarouselItem.js.js';
+import ReusableText from "@/components/Reusable/Text";
+import ReusableInnerWrapper from "@/components/Reusable/Wrapper/Inner";
+import { metadataAPI } from "@/services";
 import {
   sortItemsByAsc
-} from "../../../utils";
-import { metadataAPI } from "../../services";
-import CarouselItem from '../Core/CarouselItem.js.js';
-import ReusableText from "../Reusable/Text";
-import ReusableInnerWrapper from "../Reusable/Wrapper/Inner";
+} from "@/utils";
+import React, { useEffect, useState } from "react";
+import { Animated, Dimensions, FlatList } from "react-native";
 const { width } = Dimensions.get('window');
 const BrandLists = ({brandSelection, onBrandSelectionChange}) => {
     const [cars, setCars] = useState([]);

@@ -2,7 +2,7 @@
   "expo": {
     "name": "dealr",
     "slug": "dealr-nextgen",
-    "version": "9.0.0",
+    "version": "10.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "dealrnextgen",
@@ -12,7 +12,7 @@
       "supportsTablet": true,
       "bundleIdentifier": "com.dealrdev.dealrnextgen",
       "infoPlist": {
-        "ITSAppUsesNonExemptEncryption": false
+        "NSCameraUsageDescription": "This app uses the camera to allow vehicle buyers and sellers to snap and store their profile pictures, as well as scan their vehicle VIN numbers"
       }
     },
     "android": {
