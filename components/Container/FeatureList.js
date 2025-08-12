@@ -1,17 +1,17 @@
+import CarouselItem from '@/components/Core/CarouselItem.js.js';
+import FeaturesModel from '@/components/Modals/Features';
+import ReusableButton from '@/components/Reusable/Button';
+import ReusableIcon from '@/components/Reusable/Icon';
+import ReusableInputText from '@/components/Reusable/InputText';
+import ReusableText from '@/components/Reusable/Text';
+import ReusableInnerWrapper from '@/components/Reusable/Wrapper/Inner';
+import { defaultFeatures } from '@/components/Vehicle';
+import { metadataAPI } from '@/services';
+import CustomTheme from '@/theme';
+import { sortItemsByAsc } from '@/utils';
+import { border, borderRadius } from '@/utils/Styles';
 import React, { useEffect, useState } from 'react';
 import { Animated, Dimensions, FlatList } from 'react-native';
-import CustomTheme from '../../../theme';
-import { sortItemsByAsc } from '../../../utils';
-import { border, borderRadius } from '../../../utils/Styles';
-import { metadataAPI } from '../../services';
-import CarouselItem from '../Core/CarouselItem.js.js';
-import FeaturesModel from '../Modals/Features';
-import ReusableButton from '../Reusable/Button';
-import ReusableIcon from '../Reusable/Icon';
-import ReusableInputText from '../Reusable/InputText';
-import ReusableText from '../Reusable/Text';
-import ReusableInnerWrapper from '../Reusable/Wrapper/Inner';
-import { defaultFeatures } from '../Vehicle';
 const { width } = Dimensions.get('window');
 
 const Features = ({onFeatureSelection, featureSelection}) =>{

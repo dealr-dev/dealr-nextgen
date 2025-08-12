@@ -12,7 +12,8 @@
       "supportsTablet": true,
       "bundleIdentifier": "com.dealrdev.dealrnextgen",
       "infoPlist": {
-        "NSCameraUsageDescription": "This app uses the camera to allow vehicle buyers and sellers to snap and store their profile pictures, as well as scan their vehicle VIN numbers"
+        "NSCameraUsageDescription": "This app uses the camera to allow vehicle buyers and sellers to snap and store their profile pictures, as well as scan their vehicle VIN numbers",
+        "ITSAppUsesNonExemptEncryption": false
       }
     },
     "android": {
