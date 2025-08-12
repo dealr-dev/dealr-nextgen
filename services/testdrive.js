@@ -1,3 +1,4 @@
+import { mapFromUserAttributes } from "@/utils";
 import api from "../api";
 
 const PATH = '/bookings';
@@ -8,7 +9,6 @@ const SELLER_TO_CUSTOMER = `${PATH}/sellertocustomer`;
 const SELLER_TO_SELLER = `${PATH}/sellertoseller`;
 const NAME = 'scheduleMicroserviceAPI';
 
-import {mapFromUserAttributes} from "../utils"
 
 //seller = null, buyerseller = null, buyercustomer = null, sellercustomer = null
 const getTestDrives = async (role, id, page = 0, size = 3, history = false, upcoming = false, sort = 'recent') => {

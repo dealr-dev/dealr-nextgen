@@ -1,3 +1,6 @@
+import { scheduleAPI } from '@/services';
+import CustomTheme from '@/theme';
+import { getDates, highlightSelectedTile } from '@/utils';
 import Constants from 'expo-constants';
 import moment from 'moment';
 import React, { Fragment, useEffect, useRef, useState } from 'react';
@@ -7,9 +10,6 @@ import {
     FlatList,
     Modal
 } from 'react-native';
-import { scheduleAPI } from '../../../services';
-import CustomTheme from '../../../theme';
-import { getDates, highlightSelectedTile } from '../../../utils';
 import PrimaryButton from '../Buttons';
 import IconButton from '../Buttons/Icon';
 import Button from '../Buttons/Schedule';

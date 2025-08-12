@@ -1,6 +1,6 @@
+import { generatePathUrl } from "@/utils";
 import api from "../api";
 
-import {generatePathUrl} from "../utils";
 const PATH = '/';
 const CUSTOMER_PATH = '/customers';
 const NAME = 'vehicleMicroServiceAPIv2';

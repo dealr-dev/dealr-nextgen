@@ -1,9 +1,9 @@
+import { metadataAPI } from '@/services';
+import CustomTheme from '@/theme';
+import { sortItemsByAsc } from '@/utils';
 import Constants from 'expo-constants';
 import React, { useEffect, useState } from 'react';
 import { Dimensions, FlatList, Modal } from 'react-native';
-import { metadataAPI } from '../../../services';
-import CustomTheme from '../../../theme';
-import { sortItemsByAsc } from '../../../utils';
 import BackButton from "../Reusable/BackButton";
 import ReusableInputText from '../Reusable/InputText';
 import ReusableText from '../Reusable/Text';

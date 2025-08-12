@@ -1,5 +1,5 @@
+import Logo from '@/assets/img/DealrLogo.png';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import Logo from '../assets/img/DealrLogo.png';
 import ReusableImage from './ReusableImage';
 import SlideShow from './Slideshow';
 

@@ -1,6 +1,6 @@
+import Audi from "@/assets/img/audi-a3.jpg";
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
-import Audi from "../../../assets/img/audi-a3.jpg";
 import ReusableImage from "../Reusable/Image";
 
 const commonStyle = { height: "100%", width: "100%" };

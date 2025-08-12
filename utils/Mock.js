@@ -13,8 +13,8 @@ export const Vehicles = {
             "descriptionType" : "Demo",
             "address" : "Audi center randburg",
             "rating" : 5,
-            "image" : require("../assets/img/audi-a3.jpg"),
-            "logo" : require("../assets/img/audi-logo.png"),
+            "image" : require("@/assets/img/audi-a3.jpg"),
+            "logo" : require("@/assets/img/audi-logo.png"),
             "milage": "254000km",
             "model": "1398cc",
             "year": "2014"
@@ -31,8 +31,8 @@ export const Vehicles = {
             "descriptionType" : "Demo",
             "address" : "Audi center randburg",
             "rating" : 5,
-            "image" : require("../assets/img/audi-a4.jpg"),
-            "logo" : require("../assets/img/audi-logo.png"),
+            "image" : require("@/assets/img/audi-a4.jpg"),
+            "logo" : require("@/assets/img/audi-logo.png"),
             "milage": "254000km",
             "model": "1398cc",
             "year": "2016"
@@ -49,8 +49,8 @@ export const Vehicles = {
             "descriptionType" : "Demo",
             "address" : "Audi center randburg",
             "rating" : 5,
-            "image" : require("../assets/img/audi-a4.jpg"),
-            "logo" : require("../assets/img/audi-logo.png"),
+            "image" : require("@/assets/img/audi-a4.jpg"),
+            "logo" : require("@/assets/img/audi-logo.png"),
             "milage": "254000km",
             "model": "1398cc",
             "year": "2016"
@@ -67,8 +67,8 @@ export const VehiclesAvailability = {
             "name" : "Opel Astra",
             "description" : "1.4 Tdci 67CV Elegance",
             "status": "available", 
-            "image" : require("../assets/img/Executive/EllipseCar.png"),
-            "repimage" : require("../assets/img/Executive/EllipseRep1.png"),
+            "image" : require("@/assets/img/Executive/EllipseCar.png"),
+            "repimage" : require("@/assets/img/Executive/EllipseRep1.png"),
         },
         {
             "id" : "veh2",
@@ -76,8 +76,8 @@ export const VehiclesAvailability = {
             "name" : "Opel Astra",
             "description" : "1.4 Tdci 67CV Elegance",
             "status": "available", 
-            "image" : require("../assets/img/Executive/EllipseCar.png"),
-            "repimage" : require("../assets/img/Executive/EllipseRep1.png")
+            "image" : require("@/assets/img/Executive/EllipseCar.png"),
+            "repimage" : require("@/assets/img/Executive/EllipseRep1.png")
         },
         {
             "id" : "veh3",
@@ -85,8 +85,8 @@ export const VehiclesAvailability = {
             "name" : "Opel Astra",
             "description" : "1.4 Tdci 67CV Elegance",
             "status": "available", 
-            "image" : require("../assets/img/Executive/EllipseCar.png"),
-            "repimage" : require("../assets/img/Executive/EllipseRep2.png")
+            "image" : require("@/assets/img/Executive/EllipseCar.png"),
+            "repimage" : require("@/assets/img/Executive/EllipseRep2.png")
         },
         {
             "id" : "veh4",
@@ -94,8 +94,8 @@ export const VehiclesAvailability = {
             "name" : "Opel Astra",
             "description" : "1.4 Tdci 67CV Elegance",
             "status": "available", 
-            "image" : require("../assets/img/Executive/EllipseCar.png"),
-            "repimage" : require("../assets/img/Executive/EllipseRep3.png"),
+            "image" : require("@/assets/img/Executive/EllipseCar.png"),
+            "repimage" : require("@/assets/img/Executive/EllipseRep3.png"),
         },
         {
             "id" : "veh5",
@@ -103,8 +103,8 @@ export const VehiclesAvailability = {
             "name" : "Opel Astra",
             "description" : "1.4 Tdci 67CV Elegance",
             "status": "available", 
-            "image" : require("../assets/img/Executive/EllipseCar.png"),
-            "repimage" : require("../assets/img/Executive/EllipseRep4.png")
+            "image" : require("@/assets/img/Executive/EllipseCar.png"),
+            "repimage" : require("@/assets/img/Executive/EllipseRep4.png")
         },
         {
             "id" : "veh6",
@@ -112,8 +112,8 @@ export const VehiclesAvailability = {
             "name" : "Opel Astra",
             "description" : "1.4 Tdci 67CV Elegance",
             "status": "available", 
-            "image" : require("../assets/img/Executive/EllipseCar.png"),
-            "repimage" : require("../assets/img/Executive/EllipseRep5.png")
+            "image" : require("@/assets/img/Executive/EllipseCar.png"),
+            "repimage" : require("@/assets/img/Executive/EllipseRep5.png")
         },
     ]
 }
@@ -127,7 +127,7 @@ export const RefinedSearchResults = {
             "name" : "Ford Fiesta",
             "description" : "1.4 Tdci 67CV Elegance",
             "status": "available", 
-            "image" : require("../assets/img/Executive/FordFiesta.png"),
+            "image" : require("@/assets/img/Executive/FordFiesta.png"),
             "superDealer": "true",
             "rating" : 4,
             "address" : "Audi center randburg",
@@ -138,7 +138,7 @@ export const RefinedSearchResults = {
             "name" : "Opel Astra",
             "description" : "1.4 Tdci 67CV Elegance",
             "status": "available", 
-            "image" : require("../assets/img/Executive/OpelAstra.png"),
+            "image" : require("@/assets/img/Executive/OpelAstra.png"),
             "superDealer": "false",
             "rating" : 5,
             "address" : "Audi center randburg",
@@ -149,7 +149,7 @@ export const RefinedSearchResults = {
             "name" : "Ford Puma",
             "description" : "1.4 Tdci 67CV Elegance",
             "status": "in-test-drive", 
-            "image" : require("../assets/img/Executive/FordPuma.png"),
+            "image" : require("@/assets/img/Executive/FordPuma.png"),
             "superDealer": "true",
             "rating" : 4,
             "address" : "Audi center randburg",
@@ -160,7 +160,7 @@ export const RefinedSearchResults = {
             "name" : "Fiat Punto",
             "description" : "1.4 Tdci 67CV Elegance",
             "status": "available", 
-            "image" : require("../assets/img/Executive/FiatPunto.png"),
+            "image" : require("@/assets/img/Executive/FiatPunto.png"),
             "superDealer": "true",
             "rating" : 5,
             "address" : "Audi center randburg",
@@ -171,7 +171,7 @@ export const RefinedSearchResults = {
             "name" : "Volkswagen T-Roc",
             "description" : "1.4 Tdci 67CV Elegance",
             "status": "in-test-drive", 
-            "image" : require("../assets/img/Executive/VWTRoc.png"),
+            "image" : require("@/assets/img/Executive/VWTRoc.png"),
             "superDealer": "false",
             "rating" : 4,
             "address" : "Audi center randburg",
@@ -182,7 +182,7 @@ export const RefinedSearchResults = {
             "name" : "BMW X-Trail",
             "description" : "1.4 Tdci 67CV Elegance",
             "status": "available", 
-            "image" : require("../assets/img/Executive/BMWXTrail.png"),
+            "image" : require("@/assets/img/Executive/BMWXTrail.png"),
             "superDealer": "true",
             "rating" : 5,
             "address" : "Audi center randburg",
@@ -193,7 +193,7 @@ export const RefinedSearchResults = {
             "name" : "Kia Picanto",
             "description" : "1.4 Tdci 67CV Elegance",
             "status": "unavailable", 
-            "image" : require("../assets/img/Executive/KiaPicanto.png"),
+            "image" : require("@/assets/img/Executive/KiaPicanto.png"),
             "superDealer": "false",
             "rating" : 4,
             "address" : "Audi center randburg",
@@ -204,7 +204,7 @@ export const RefinedSearchResults = {
             "name" : "Opel Corsa",
             "description" : "1.4 Tdci 67CV Elegance",
             "status": "available", 
-            "image" : require("../assets/img/Executive/OpelCorsa.png"),
+            "image" : require("@/assets/img/Executive/OpelCorsa.png"),
             "superDealer": "true",
             "rating" : 5,
             "address" : "Audi center randburg",
@@ -215,7 +215,7 @@ export const RefinedSearchResults = {
             "name" : "Fiat 500L",
             "description" : "1.4 Tdci 67CV Elegance",
             "status": "unavailable", 
-            "image" : require("../assets/img/Executive/Fiat500L.png"),
+            "image" : require("@/assets/img/Executive/Fiat500L.png"),
             "superDealer": "false",
             "rating" : 4,
             "address" : "Audi center randburg",

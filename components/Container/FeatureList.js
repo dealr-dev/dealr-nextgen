@@ -56,7 +56,7 @@ const Features = ({onFeatureSelection, featureSelection}) =>{
         async function fetchData() {
             const { attributes } = await metadataAPI.searchFeatures();
             const sortFeatures = sortItemsByAsc(attributes, 'name');
-            await setFeatures(sortFeatures);
+            setFeatures(sortFeatures);
         };
         fetchData();
     }, []);
@@ -208,7 +208,7 @@ const Features = ({onFeatureSelection, featureSelection}) =>{
                         flexWrap: 'wrap'
                     }}
                 >
-                    {feature.length > 0 && feature.map((feature) =>
+                    {feature && feature.length > 0 && feature.map((feature) =>
                         <ReusableInnerWrapper
                             key={feature}
                             style={{

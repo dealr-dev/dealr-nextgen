@@ -1,9 +1,9 @@
+import WelcomeBg from '@/assets/img/welcome.png';
+import ReusableImage from '@/components/ReusableImage';
+import WelcomeCard from '@/components/WelcomeCard';
 import { useRouter } from 'expo-router';
 import { useEffect } from "react";
 import { Dimensions, SafeAreaView, StyleSheet, Text, View } from 'react-native';
-import WelcomeBg from '../assets/img/welcome.png';
-import ReusableImage from '../components/ReusableImage';
-import WelcomeCard from '../components/WelcomeCard';
 import { useAuth } from './context/AuthContext';
 
 export default function WelcomeScreen() {

@@ -1,8 +1,8 @@
+import { paging } from "@/utils/paging";
 import React from "react";
 import {
-  ActivityIndicator, RefreshControl, ScrollView, StyleSheet, View
+    ActivityIndicator, RefreshControl, ScrollView, StyleSheet, View
 } from "react-native";
-import { paging } from "../../utils/paging";
 
 export default function ScrollList({
   list,

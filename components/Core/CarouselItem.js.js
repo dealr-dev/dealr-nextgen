@@ -1,6 +1,6 @@
+import CustomTheme from '@/theme';
+import { border, borderRadius } from '@/utils/Styles';
 import React from 'react';
-import CustomTheme from '../../../theme';
-import { border, borderRadius } from '../../../utils/Styles';
 import ReusableImage from '../Reusable/Image';
 import ReusableText from '../Reusable/Text';
 import ReusableTile from '../Reusable/Tile';

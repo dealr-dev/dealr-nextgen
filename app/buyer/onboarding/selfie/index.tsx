@@ -1,11 +1,11 @@
+import ReusableButton from '@/components/Reusable/Button';
+import ReusableText from '@/components/Reusable/Text';
+import ReusableInnerWrapper from '@/components/Reusable/Wrapper/Inner';
+import CustomTheme from '@/theme';
 import { useRouter } from 'expo-router';
 import React from 'react';
 import { Dimensions } from 'react-native';
 import PhoneSelfieFront from '../../../../assets/img/PhoneSelfieFront';
-import ReusableButton from '../../../../components/Reusable/Button';
-import ReusableText from '../../../../components/Reusable/Text';
-import ReusableInnerWrapper from '../../../../components/Reusable/Wrapper/Inner';
-import CustomTheme from '../../../../theme';
 
 
 export default function SelfieScreen() {

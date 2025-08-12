@@ -1,6 +1,4 @@
 import api from "../api";
-import {Auth} from 'aws-amplify';
-import {generatePathUrl} from "../utils";
 
 const PATH = '/customers';
 const NAME = 'customerMicroserviceAPI';

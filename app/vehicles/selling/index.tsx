@@ -1,14 +1,14 @@
+import ReusableButton from '@/components/Reusable/Button';
+import ReusableIcon from '@/components/Reusable/Icon';
+import Loader from '@/components/Reusable/Loader';
+import ReusableText from '@/components/Reusable/Text';
+import ReusableTile from '@/components/Reusable/Tile';
+import ReusableInnerWrapper from '@/components/Reusable/Wrapper/Inner';
+import ReusableOuterWrapper from '@/components/Reusable/Wrapper/Outer';
+import CustomTheme from '@/theme';
 import { useRouter } from 'expo-router';
 import React, { useEffect, useRef, useState } from 'react';
 import { Dimensions } from 'react-native';
-import ReusableButton from '../../../components/Reusable/Button';
-import ReusableIcon from '../../../components/Reusable/Icon';
-import Loader from '../../../components/Reusable/Loader';
-import ReusableText from '../../../components/Reusable/Text';
-import ReusableTile from '../../../components/Reusable/Tile';
-import ReusableInnerWrapper from '../../../components/Reusable/Wrapper/Inner';
-import ReusableOuterWrapper from '../../../components/Reusable/Wrapper/Outer';
-import CustomTheme from '../../../theme';
 
 
 export default function ExploreScreen() {

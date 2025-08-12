@@ -1,8 +1,8 @@
+import UserAvatar from "@/assets/user_default.png";
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
-import UserAvatar from "../../../assets/user_default.png";
-import Rating from "./Rating";
 import ReusableImage from "../Reusable/Image";
+import Rating from "./Rating";
 
 const commonStyle = { height: "100%", width: "100%" };
 

@@ -1,8 +1,8 @@
+import { openMaps } from '@/utils';
 import { useRouter } from 'expo-router';
 import moment from 'moment';
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { openMaps } from '../../../utils';
 import Rating from '../Core/rating';
 import ReuseableImage from '../Reusable/Image';
 

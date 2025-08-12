@@ -1,6 +1,6 @@
-import api from "../api";
 //import deviceInfo from "../device/info";
-import { mapFromUserAttributes } from "../utils";
+import { mapFromUserAttributes } from "@/utils";
+import api from "../api";
 
 const PATH = '/devices';
 const NAME = 'deviceMicroserviceAPI';

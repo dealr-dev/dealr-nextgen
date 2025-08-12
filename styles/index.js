@@ -1,5 +1,5 @@
+import CustomTheme from '@/theme';
 import { Platform, StatusBar, StyleSheet } from 'react-native';
-import CustomTheme from '../theme';
 
 const transparent = 'rgba(255, 255, 255, 0)';
 

@@ -22,7 +22,7 @@ const { width, height } = Dimensions.get('window');
 const vehicleState = {
     sort: null, 
     cognitoUser: null, 
-    priceSelection: null, 
+    priceSelection: {frequency: 'yearly', min: 0, max: 0}, 
     brandSelection: null, 
     categorySelection: null, 
     yearSelection: null, 
@@ -35,6 +35,9 @@ export default function Filtering() {
     
     const [dirty, setDirty] = useState([]);
     const [tabSelection, setTotalBudgetToActive] = useState(priceSelection?.frequency === 'yearly' ? 0 : 1);
+
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState('');
 
     const handleNavigate = (screen: string) => {
         console.log('Navigate', screen)

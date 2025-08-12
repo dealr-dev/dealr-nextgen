@@ -1,15 +1,15 @@
+import ReusableButton from '@/components/Reusable/Button';
+import ReusableText from '@/components/Reusable/Text';
+import ReusableTile from '@/components/Reusable/Tile';
+import ReusableInnerWrapper from '@/components/Reusable/Wrapper/Inner';
+import ReusableOuterWrapper from '@/components/Reusable/Wrapper/Outer';
+import ReusableScrollView from '@/components/Reusable/Wrapper/ScrollView';
+import CustomTheme from '@/theme';
 import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import { Dimensions } from 'react-native';
 import NewCars from '../../../../assets/img/Condition/New';
 import UsedCars from '../../../../assets/img/Condition/Used';
-import ReusableButton from '../../../../components/Reusable/Button';
-import ReusableText from '../../../../components/Reusable/Text';
-import ReusableTile from '../../../../components/Reusable/Tile';
-import ReusableInnerWrapper from '../../../../components/Reusable/Wrapper/Inner';
-import ReusableOuterWrapper from '../../../../components/Reusable/Wrapper/Outer';
-import ReusableScrollView from '../../../../components/Reusable/Wrapper/ScrollView';
-import CustomTheme from '../../../../theme';
 
 
 

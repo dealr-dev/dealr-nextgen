@@ -1,8 +1,8 @@
+import CustomTheme from '@/theme';
+import { openMaps } from '@/utils';
+import { border, borderRadius, margin, padding } from '@/utils/Styles';
 import moment from 'moment';
 import React from 'react';
-import CustomTheme from '../../../theme';
-import { openMaps } from '../../../utils';
-import { border, borderRadius, margin, padding } from '../../../utils/Styles';
 import ReusableButton from '../Reusable/Button';
 import ReuseableImage from '../Reusable/Image';
 import ReusableStarsRating from '../Reusable/Rating';

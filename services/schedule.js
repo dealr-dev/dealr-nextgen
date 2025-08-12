@@ -1,5 +1,5 @@
+import { generateCustomPathUrl } from "@/utils";
 import api from "../api";
-import {generatePathUrl, generateCustomPathUrl} from "../utils";
 
 const PATH = '/schedules';
 const NAME = 'scheduleMicroserviceAPI';

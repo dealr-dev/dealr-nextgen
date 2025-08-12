@@ -1,9 +1,9 @@
+import CustomTheme from '@/theme';
 import React from 'react';
 import {
     Animated,
     Dimensions, FlatList, StyleSheet, View, ViewStyle
 } from 'react-native';
-import CustomTheme from '../../../theme';
 import ReusableTile from '../Reusable/Tile';
 
 const { width } = Dimensions.get('window');

@@ -1,4 +1,5 @@
 
+import CustomTheme from '@/theme';
 import React from "react";
 import { Dimensions, StyleSheet, Text } from "react-native";
 import {
@@ -7,7 +8,6 @@ import {
     useBlurOnFulfill,
     useClearByFocusCell
 } from 'react-native-confirmation-code-field';
-import CustomTheme from '../../theme';
 import ReusableInnerWrapper from '../Reusable/Wrapper/Inner';
 
 const { width } = Dimensions.get('window');

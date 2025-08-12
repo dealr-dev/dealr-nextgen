@@ -1,11 +1,11 @@
+import Range from '@/components/Core/Range';
+import ReusableButton from '@/components/Reusable/Button';
+import ReusableText from '@/components/Reusable/Text';
+import ReusableInnerWrapper from '@/components/Reusable/Wrapper/Inner';
+import CustomTheme from '@/theme';
+import { border } from '@/utils/Styles';
 import React from 'react';
 import { Dimensions } from 'react-native';
-import CustomTheme from '../../../theme';
-import { border } from '../../utils/Styles';
-import Range from '../Core/Range';
-import ReusableButton from '../Reusable/Button';
-import ReusableText from '../Reusable/Text';
-import ReusableInnerWrapper from '../Reusable/Wrapper/Inner';
 const { width, height } = Dimensions.get('window');
 
 export default function BudgetTabs({onTabChange, priceSelection: {frequency, min, max}, onFromValueChange, onToValueChange}) {

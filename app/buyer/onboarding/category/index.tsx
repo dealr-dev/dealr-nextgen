@@ -1,3 +1,10 @@
+import ReusableButton from '@/components/Reusable/Button';
+import ReusableText from '@/components/Reusable/Text';
+import ReusableTile from '@/components/Reusable/Tile';
+import ReusableInnerWrapper from '@/components/Reusable/Wrapper/Inner';
+import ReusableOuterWrapper from '@/components/Reusable/Wrapper/Outer';
+import ReusableScrollView from '@/components/Reusable/Wrapper/ScrollView';
+import CustomTheme from '@/theme';
 import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import { Dimensions } from 'react-native';
@@ -10,13 +17,6 @@ import MiniVans from '../../../../assets/img/Category/MiniVans';
 import Sedans from '../../../../assets/img/Category/Sedans';
 import Sport from '../../../../assets/img/Category/Sport';
 import SUVs from '../../../../assets/img/Category/SUVs';
-import ReusableButton from '../../../../components/Reusable/Button';
-import ReusableText from '../../../../components/Reusable/Text';
-import ReusableTile from '../../../../components/Reusable/Tile';
-import ReusableInnerWrapper from '../../../../components/Reusable/Wrapper/Inner';
-import ReusableOuterWrapper from '../../../../components/Reusable/Wrapper/Outer';
-import ReusableScrollView from '../../../../components/Reusable/Wrapper/ScrollView';
-import CustomTheme from '../../../../theme';
 
 
 

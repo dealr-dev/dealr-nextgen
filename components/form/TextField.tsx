@@ -1,7 +1,7 @@
+import colors from '@/theme/colors';
+import spacing from '@/theme/spacing';
 import React from 'react';
 import { StyleSheet, TextInput, TextInputProps, View } from 'react-native';
-import colors from '../theme/colors';
-import spacing from '../theme/spacing';
 
 interface TextFieldProps extends TextInputProps {
   value: string;

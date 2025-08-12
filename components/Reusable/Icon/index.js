@@ -1,9 +1,9 @@
+import CustomTheme from '@/theme';
 import {
     AntDesign, EvilIcons, Feather, FontAwesome, FontAwesome5,
     Fontisto, Ionicons, MaterialCommunityIcons, MaterialIcons
 } from '@expo/vector-icons';
 import React from 'react';
-import CustomTheme from '../../../theme';
 
 export default function Icon({
     iconName, 

@@ -1,12 +1,12 @@
+import Location from '@/components/modules/Location';
+import ReusableButton from '@/components/Reusable/Button';
+import ReusableText from '@/components/Reusable/Text';
+import ReusableInnerWrapper from '@/components/Reusable/Wrapper/Inner';
+import ReusableOuterWrapper from '@/components/Reusable/Wrapper/Outer';
+import ReusableScrollView from '@/components/Reusable/Wrapper/ScrollView';
 import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import { Dimensions } from 'react-native';
-import Location from '../../../../components/modules/Location';
-import ReusableButton from '../../../../components/Reusable/Button';
-import ReusableText from '../../../../components/Reusable/Text';
-import ReusableInnerWrapper from '../../../../components/Reusable/Wrapper/Inner';
-import ReusableOuterWrapper from '../../../../components/Reusable/Wrapper/Outer';
-import ReusableScrollView from '../../../../components/Reusable/Wrapper/ScrollView';
 
 export default function LocationScreen() {
   const router = useRouter();

@@ -1,24 +1,24 @@
+import ArrowDown from '@/assets/img/SignUp/ArrowDown';
+import ProgressBar from '@/components/nav/ProgressBar';
+import ScreenTopNav from '@/components/nav/TopNav';
+import BackButton from '@/components/Reusable/BackButton';
+import ReusableButton from '@/components/Reusable/Button';
+import ReusableIcon from '@/components/Reusable/Icon';
+import ReusableInputText from '@/components/Reusable/InputText';
+import Loader from '@/components/Reusable/Loader';
+import ReusableText from '@/components/Reusable/Text';
+import ReusableTile from '@/components/Reusable/Tile';
+import ReusableInnerWrapper from '@/components/Reusable/Wrapper/Inner';
+import ReusableOuterWrapper from '@/components/Reusable/Wrapper/Outer';
+import ReusableScrollView from '@/components/Reusable/Wrapper/ScrollView';
 import AuthService from '@/services/AuthService';
+import CustomTheme from '@/theme';
+import { generateMobileNumber } from '@/utils';
+import CountryDialCodes from '@/utils/CountriesDialInfo';
 import Constants from 'expo-constants';
 import { useRouter } from 'expo-router';
 import React, { useEffect, useState } from 'react';
 import { Dimensions, FlatList, Modal } from 'react-native';
-import ArrowDown from '../../assets/img/SignUp/ArrowDown';
-import ProgressBar from '../../components/nav/ProgressBar';
-import ScreenTopNav from '../../components/nav/TopNav';
-import BackButton from '../../components/Reusable/BackButton';
-import ReusableButton from '../../components/Reusable/Button';
-import ReusableIcon from '../../components/Reusable/Icon';
-import ReusableInputText from '../../components/Reusable/InputText';
-import Loader from '../../components/Reusable/Loader';
-import ReusableText from '../../components/Reusable/Text';
-import ReusableTile from '../../components/Reusable/Tile';
-import ReusableInnerWrapper from '../../components/Reusable/Wrapper/Inner';
-import ReusableOuterWrapper from '../../components/Reusable/Wrapper/Outer';
-import ReusableScrollView from '../../components/Reusable/Wrapper/ScrollView';
-import CustomTheme from '../../theme';
-import { generateMobileNumber } from '../../utils';
-import CountryDialCodes from '../../utils/CountriesDialInfo';
 
 
 export default function SignIn() {

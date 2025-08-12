@@ -1,11 +1,11 @@
+import Camera, { CameraHandle } from '@/components/modules/Camera';
+import ReusableButton from '@/components/Reusable/Button';
+import ReusableText from '@/components/Reusable/Text';
+import ReusableInnerWrapper from '@/components/Reusable/Wrapper/Inner';
+import CustomTheme from '@/theme';
 import { useRouter } from 'expo-router';
 import React, { useRef, useState } from 'react';
 import { Dimensions } from 'react-native';
-import Camera, { CameraHandle } from '../../../../components/modules/Camera';
-import ReusableButton from '../../../../components/Reusable/Button';
-import ReusableText from '../../../../components/Reusable/Text';
-import ReusableInnerWrapper from '../../../../components/Reusable/Wrapper/Inner';
-import CustomTheme from '../../../../theme';
 
 export default function TakePhotoScreen() {
   const [photoUri, setPhotoUri] = useState<string | null>(null);

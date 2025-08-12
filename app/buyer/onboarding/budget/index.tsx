@@ -1,14 +1,14 @@
+import ReusableButton from '@/components/Reusable/Button';
+import ReusableSlider from '@/components/Reusable/Slider';
+import ReusableText from '@/components/Reusable/Text';
+import ReusableInnerWrapper from '@/components/Reusable/Wrapper/Inner';
+import ReusableOuterWrapper from '@/components/Reusable/Wrapper/Outer';
+import ReusableScrollView from '@/components/Reusable/Wrapper/ScrollView';
+import ReusableSliderWrap from '@/components/Reusable/Wrapper/Slider';
+import CustomTheme from '@/theme';
 import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import { Dimensions } from 'react-native';
-import ReusableButton from '../../../../components/Reusable/Button';
-import ReusableSlider from '../../../../components/Reusable/Slider';
-import ReusableText from '../../../../components/Reusable/Text';
-import ReusableInnerWrapper from '../../../../components/Reusable/Wrapper/Inner';
-import ReusableOuterWrapper from '../../../../components/Reusable/Wrapper/Outer';
-import ReusableScrollView from '../../../../components/Reusable/Wrapper/ScrollView';
-import ReusableSliderWrap from '../../../../components/Reusable/Wrapper/Slider';
-import CustomTheme from '../../../../theme';
 
 
 export default function BudgetScreen() {

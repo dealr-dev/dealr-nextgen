@@ -1,5 +1,5 @@
+import { generatePathUrl } from "@/utils";
 import api from "../api";
-import { generatePathUrl } from "../utils";
 import sessionService from "./AuthService";
 
 const PATH = '/sellers';

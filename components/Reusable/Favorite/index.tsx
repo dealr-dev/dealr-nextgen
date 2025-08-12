@@ -1,6 +1,6 @@
+import CustomTheme from '@/theme';
 import React from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
-import CustomTheme from '../../../theme';
 import ReusableIcon from '../Reusable/Icon';
 
 interface FavoriteProps {

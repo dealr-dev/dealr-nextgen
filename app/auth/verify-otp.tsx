@@ -1,18 +1,18 @@
+import CodeConfirmation from '@/components/modules/CodeConfirmation';
+import ProgressBar from '@/components/nav/ProgressBar';
+import ScreenTopNav from '@/components/nav/TopNav';
+import BackButton from '@/components/Reusable/BackButton';
+import ReusableButton from '@/components/Reusable/Button';
+import Loader from '@/components/Reusable/Loader';
+import ReusableText from '@/components/Reusable/Text';
+import ReusableInnerWrapper from '@/components/Reusable/Wrapper/Inner';
+import ReusableOuterWrapper from '@/components/Reusable/Wrapper/Outer';
+import ReusableScrollView from '@/components/Reusable/Wrapper/ScrollView';
+import AuthService from '@/services/AuthService';
+import CustomTheme from '@/theme';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import React, { useState } from "react";
 import { Dimensions, KeyboardAvoidingView, StyleSheet } from 'react-native';
-import CodeConfirmation from '../../components/modules/CodeConfirmation';
-import ProgressBar from '../../components/nav/ProgressBar';
-import ScreenTopNav from '../../components/nav/TopNav';
-import BackButton from '../../components/Reusable/BackButton';
-import ReusableButton from '../../components/Reusable/Button';
-import Loader from '../../components/Reusable/Loader';
-import ReusableText from '../../components/Reusable/Text';
-import ReusableInnerWrapper from '../../components/Reusable/Wrapper/Inner';
-import ReusableOuterWrapper from '../../components/Reusable/Wrapper/Outer';
-import ReusableScrollView from '../../components/Reusable/Wrapper/ScrollView';
-import AuthService from '../../services/AuthService';
-import CustomTheme from '../../theme';
 
 const { width } = Dimensions.get('window');
 

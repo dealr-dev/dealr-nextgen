@@ -1,10 +1,9 @@
+import { border, borderRadius, topBarProps } from '@/utils/Styles';
 import Constants from 'expo-constants';
 import moment from 'moment';
 import React from 'react';
 import { Dimensions } from 'react-native';
-import { topBarProps } from '../../../utils/Styles';
 import ScreenTopNav from '../../navigation/TopNav';
-import { border, borderRadius } from '../../utils/Styles';
 import Rating from '../Core/rating';
 import ReusableButton from '../Reusable/Button';
 import ReusableImage from '../Reusable/Image';

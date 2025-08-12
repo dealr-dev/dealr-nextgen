@@ -1,15 +1,15 @@
 // /buyer/onboarding/_layout.tsx
+import ProgressBar from '@/components/nav/ProgressBar';
+import ScreenTopNav from '@/components/nav/TopNav';
+import BackButton from '@/components/Reusable/BackButton';
+import ReusableText from '@/components/Reusable/Text';
+import ReusableInnerWrapper from '@/components/Reusable/Wrapper/Inner';
+import ReusableOuterWrapper from '@/components/Reusable/Wrapper/Outer';
+import ReusableScrollView from '@/components/Reusable/Wrapper/ScrollView';
+import CustomTheme from '@/theme';
 import { Slot, useLocalSearchParams, useRouter } from 'expo-router';
 import React from 'react';
 import { Dimensions, StyleSheet } from 'react-native';
-import ProgressBar from '../../../components/nav/ProgressBar';
-import ScreenTopNav from '../../../components/nav/TopNav';
-import BackButton from '../../../components/Reusable/BackButton';
-import ReusableText from '../../../components/Reusable/Text';
-import ReusableInnerWrapper from '../../../components/Reusable/Wrapper/Inner';
-import ReusableOuterWrapper from '../../../components/Reusable/Wrapper/Outer';
-import ReusableScrollView from '../../../components/Reusable/Wrapper/ScrollView';
-import CustomTheme from '../../../theme';
 
 const OnboardingLayout = () => {
   const { width } = Dimensions.get('window');

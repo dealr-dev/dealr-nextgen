@@ -1,6 +1,6 @@
+import defaultImage from '@/assets/user_default.png';
 import React, { useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import defaultImage from '../../../assets/user_default.png';
 import ReuseableImage from '../Reusable/Image';
 
 const commonStyle = { height: '100%', width: '100%' };

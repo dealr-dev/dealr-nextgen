@@ -1,7 +1,7 @@
+import ScheduleCarImg from '@/assets/img/schedule.png';
 import Constants from 'expo-constants';
 import React from 'react';
 import { Dimensions, Modal } from 'react-native';
-import ScheduleCarImg from '../../../assets/img/schedule.png';
 import PrimaryButton from '../Buttons';
 import ReusableImage from '../Reusable/Image';
 import Text from '../Text';

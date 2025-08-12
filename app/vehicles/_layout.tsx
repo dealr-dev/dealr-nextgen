@@ -1,9 +1,9 @@
 // app/buyer/vehicles/_layout.tsx
+import CustomTheme from '@/theme';
 import { FontAwesome5, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { Tabs } from 'expo-router';
 import React from 'react';
 import { Text } from 'react-native';
-import CustomTheme from '../../theme';
 
 const activeColor = CustomTheme.colors.cornflowerBlue;
 const inactiveColor = 'gray';

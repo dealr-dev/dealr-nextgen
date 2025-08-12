@@ -1,5 +1,5 @@
+import { mapFromUserAttributes } from "@/utils";
 import api from "../api";
-import {mapFromUserAttributes} from "../utils";
 const PATH = '/favorites';
 const NAME = 'favoritesMicroserviceAPI';
 

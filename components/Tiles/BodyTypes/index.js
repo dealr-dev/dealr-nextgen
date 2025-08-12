@@ -1,10 +1,10 @@
+import CustomTheme from '@/theme';
 import React from 'react';
 import Bakkies from '../../../../assets/img/Category/Bakkies';
 import HatchBacks from '../../../../assets/img/Category/HatchBacks';
 import MiniVans from '../../../../assets/img/Category/MiniVans';
 import Sedans from '../../../../assets/img/Category/Sedans';
 import SUVs from '../../../../assets/img/Category/SUVs';
-import CustomTheme from '../../../theme';
 import ReusableText from '../Reusable/Text';
 
 const textStyle = {

@@ -1,9 +1,9 @@
+import ReceiveVector from "@/assets/Vector-receive.png";
+import SenderVector from "@/assets/Vector.png";
 import React from "react";
 import {
   Dimensions, StyleSheet, Text, View
 } from "react-native";
-import ReceiveVector from "../../../assets/Vector-receive.png";
-import SenderVector from "../../../assets/Vector.png";
 import ReusableImage from "../Reusable/Image";
 
 const ChatMessage = ({ message, type }) => {

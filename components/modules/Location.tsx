@@ -1,8 +1,8 @@
+import { googleAPI } from '@/services';
 import * as Location from 'expo-location';
 import React, { useEffect, useRef, useState } from 'react';
 import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
 import MapView, { PROVIDER_GOOGLE, Region } from 'react-native-maps';
-import { googleAPI } from '../../services';
 
 interface LocationModuleProps {
   onLocationSelect: (location: {

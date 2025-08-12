@@ -1,6 +1,6 @@
+import colors from '@/theme/colors';
 import React from 'react';
 import { StyleSheet, Text as RNText, TextProps } from 'react-native';
-import colors from '../theme/colors';
 
 const Text: React.FC<TextProps> = ({ style, children, ...props }) => {
   return (
