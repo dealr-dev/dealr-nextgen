@@ -31,7 +31,7 @@ export default function WelcomeScreen() {
     });
   }
   
-  const handleExec = () => router.push('/vehicles/filtering');
+  const handleExec = () => router.push('/seller/appointments');
   const handleLogin = () => router.push('/auth/sign-in');
 
   useEffect(() => {

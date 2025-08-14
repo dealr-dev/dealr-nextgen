@@ -1,0 +1,847 @@
+import PrimaryButton from '@/components/Buttons';
+import BodyColor from '@/components/Modals/BodyColor';
+import GenericDropdown from '@/components/Modals/GenericDropdown';
+import Make from '@/components/Modals/Make';
+import CarModel from '@/components/Modals/Model';
+import BackButton from '@/components/Reusable/BackButton';
+import ReusableButton from '@/components/Reusable/Button';
+import ReusableIcon from '@/components/Reusable/Icon';
+import ReusableInputText from '@/components/Reusable/InputText';
+import Loader from '@/components/Reusable/Loader';
+import ReusableTile from '@/components/Reusable/Tile';
+import ReusableOuterWrapper from '@/components/Reusable/Wrapper/Outer';
+import ReusableScrollView from '@/components/Reusable/Wrapper/ScrollView';
+import Text from '@/components/Text';
+import Wrapper from '@/components/Wrapper';
+import ScreenTopNav from '@/navigation/TopNav';
+import { vehicleAPI } from '@/services';
+import Auth from '@/services/AuthService';
+import { error, loading, vehicleState } from '@/slices/vehicle';
+import CustomTheme from '@/theme';
+import { fetchUserThenUpdateDefaultRoute, mapFromUserAttributes, navigateToAScreen } from '@/utils';
+import React, { useEffect, useState } from 'react';
+import { Dimensions, KeyboardAvoidingView, Platform } from 'react-native';
+import styled from 'styled-components/native';
+
+const DropDownWrapper = styled.View`
+    flex-direction: column;
+    justify-content: flex-start;
+    margin-top: 0;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 90%;
+`;
+
+const Error = styled.Text`
+    font-family:'Poppins-Medium';
+    font-weight:600;
+    font-size:12px;
+    color:#f01;
+    text-align:center;
+`;
+
+const NoError = styled.View`
+    font-family:'Poppins-Medium';
+    font-weight:600;
+    font-size:12px;
+    color:#f01;
+    text-align:center;
+`;
+
+const InputBottomBorder = styled.View`
+    flex-direction: column;
+    justify-content: flex-start;
+    margin-top: 0;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    /* background-color: #f01; */
+    height: 60px;
+    width: 90%;
+    padding: 0;
+    border-bottom-width: 1px;
+    border-bottom-color: #D4D7DD;
+    position: relative;
+`;
+
+const InputContainer = styled.View`
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    padding: 0;
+    margin: 0;
+`;
+
+const Title = styled.Text`
+    font-size: 12px;
+    color: #6F7889;
+`;
+
+const ButtonTitle = styled.Text`
+    font-family: ${({ fontfamily }) => fontfamily ? fontfamily : 'Poppins-Bold'};
+    letter-spacing: .5px;
+    font-weight: ${({ fontWeight }) => fontWeight ? fontWeight : 500};;
+    font-size: ${({ fontsize }) => fontsize ? fontsize : '20px'};
+    color: ${({ color }) => color || '#000000'};
+    text-align: ${({ align }) => align || 'left'};
+`;
+
+const Button = styled.TouchableOpacity`
+    margin: 30px 20px 20px;
+    font-family: ${({ fontfamily }) => fontfamily ? fontfamily : 'Poppins-Bold'};
+    letter-spacing: .5px;
+    font-size: ${({ fontsize }) => fontsize ? fontsize : '20px'};
+    border-radius: 10px;
+    background: ${({ bgColor }) => bgColor ? bgColor : '#5A89EA'};
+    display: flex;
+    align-items: center;
+    padding: 12px 20px;
+    width: 90%;
+    text-align: ${({ align }) => align || 'left'};
+`;
+
+const ErrorContainer = styled.View`
+    padding: 0 10px;
+    position: absolute;
+    right: 0;
+    bottom: -20px;
+`
+
+const CONDITIONS = [
+    { label: "New", value: "new" },
+    { label: "Used", value: "used" }
+];
+
+const VEHICLE_TYPES = [
+    { label: "Mini Van", value: "minivan" },
+    { label: "Sedan", value: "sedan" },
+    { label: "SUV", value: "suv" },
+    { label: "Bakkie", value: "bakkie" },
+    { label: "Hatchback", value: "hatchback" },
+    { label: "Luxury", value: "luxury" },
+    { label: "Sport", value: "sport" },
+    { label: "Hyper", value: "hyper" },
+    { label: "Electric", value: "electric" },
+];
+
+const FUEL_TYPES = [
+    { label: "Diesel", value: "diesel" },
+    { label: "Electric", value: "electric" },
+    { label: "Petrol", value: "petrol" },
+    { label: "Hybrid", value: "hybrid" }
+];
+
+
+export default function AddACar({ navigation, route }) {
+
+    const dispatch = useDispatch();
+    const state = useSelector(vehicleState);
+
+    const [vehicleSearchError, setVehicleSearchError] = useState('')
+
+    const [makeModal, setMakeModal] = useState(false);
+    const [carMake, setCarMake] = useState(null);
+    const [regError, setRegError] = useState(true);
+    const [customerdetails, setCustomerDetails] = useState(null);
+    const [mmcode, setMMCode] = useState(null)
+    const showHideMakeModal = () => {
+        setMakeModal(!makeModal);
+    };
+    const handleMakeText = text => {
+        setCarMake(text);
+    };
+
+    const [bodyColorModal, setBodyColorModal] = useState(false);
+    const [bodyColor, setBodyColor] = useState(null);
+    const showHideBodyColorModal = () => {
+        setBodyColorModal(!bodyColorModal);
+    };
+    const handleBodyColor = text => {
+        setBodyColor(text);
+    };
+
+    const [registration, setRegistration] = useState(null);
+    const handleRegistration = text => {
+
+        // setRegError(test);
+        setRegistration(text);
+    };
+
+    const [year, setYear] = useState(null);
+    const handleYear = text => {
+        setYear(text);
+    };
+
+    const [model, setModel] = useState(null);
+    const [modelModal, setModelModal] = useState(false);
+    const showHideModelModal = () => {
+        setModelModal(!modelModal);
+    };
+    const handleModel = text => {
+        setModel(text);
+    };
+
+    const [fuelType, setFuelType] = useState(null);
+    const [fuelModal, setFuelModal] = useState(false);
+    const handleFuelType = text => {
+        setFuelType(text);
+    };
+
+
+    const [vehicleType, setVehicleType] = useState(null);
+    const [vehicleModal, setVehicleModal] = useState(false);
+    const handleVehicleType = text => {
+        setVehicleType(text);
+        //setVehicleModal(!vehicleModal);
+    };
+
+    const [plateVin, setPlateVin] = useState(null);
+    const handlePlateOrVin = text => {
+        setPlateVin(text);
+    }
+
+    const [condition, setCondition] = useState(null);
+    const [conditionModal, setConditionModal] = useState(false);
+    const handleCondition = text => {
+        setCondition(text);
+    }
+
+    const mapValueToDisplay = (value, list) => {
+        const item = list.find(x => x.value === value);
+
+        if (!value) 
+            return null;
+
+        if (item)
+            return item.label;
+
+        return null;
+    }
+
+    /*const searchByPlateOrVin = async () => {
+        try {
+            if (!plateVin) {
+                dispatch(error("Please enter Vin!"));
+            } else {
+                dispatch(loading(true));
+                const response = await vehicleAPI.addVehicleWithVin(plateVin);
+                dispatch(loading(false));
+                if (response) {
+                    if (Object.keys(response.vehicle).length > 0) {
+                        const {vehicle: {color, registration, brand, model, year, mmcode}} = response;
+                        setBodyColor(color);
+                        setRegistration(registration);
+                        setCarMake(brand);
+                        setModel(model);
+                        if (year) {
+                            setYear(year.toString());
+                        }
+                        setMMCode(mmcode);
+                        setVehicleSearchError('');
+                    } else {
+                        setVehicleSearchError('Vehicle not found, please enter details below!');
+                    }
+                    
+                }
+                
+            }
+
+        } catch (e) {
+            debugger;
+            dispatch(error(e.message));
+        }
+    }*/
+
+    const searchByPlateOrVin = async () => {
+
+        if (!plateVin) {
+            dispatch(error("Please enter Vin!"));
+        } else {
+            setVehicleSearchError('Vehicle not found, please enter details below!');
+        }
+    }
+
+    const isNext = condition !== null && carMake !== null && bodyColor !== null && registration !== null && year !== null && model !== null && fuelType !== 'Select fuel type...' && vehicleType !== 'Select vehicle type...';
+
+    const handleNavigate = (nav, screen) => {
+        navigateToAScreen(nav, screen);
+    };
+
+    useEffect(() => {
+        resetFields();
+        dispatch(error(''));
+        dispatch(loading(false));
+        Auth.currentAuthenticatedUser({
+            bypassCache: true
+        })
+            .then(user => {
+                dispatch(loading(false));
+                const { attributes } = user;
+                const { customer, location } = mapFromUserAttributes(attributes);
+                setCustomerDetails({ customer, location });
+            });
+
+        if (route && route.params && route.params.vehicle) {
+            const {color, registration, brand, model, year} = route.params.vehicle;
+            setBodyColor(color);
+            setRegistration(registration);
+            setCarMake(brand);
+            setModel(model);
+            setYear(year.toString());
+        }
+    }, [route]);
+
+    const resetFields = () => {
+        handleMakeText('');
+        handleRegistration(null);
+        handleBodyColor('');
+        handleYear('');
+        handleCondition('');
+        handleVehicleType(null);
+        handleFuelType(null);
+        handleModel('');
+    }
+
+    const nextStep = async () => {
+        try {
+            if (isNext) {
+                const { customer, location } = customerdetails
+                dispatch(error(''));
+                dispatch(loading(true));
+
+                const response = await vehicleAPI.addVehicle({
+                    registration,
+                    brand: carMake,
+                    model,
+                    fueltype: fuelType,
+                    vehicletype: vehicleType,
+                    condition,
+                    color: bodyColor,
+                    customer,
+                    location: { type: 'Point', coordinates: [location.lat, location.lng] },
+                    address: location.address,
+                    year,
+                    mmcode
+                });
+
+                const {vehicle: {_id}} = response;
+                dispatch(loading(false));
+                await fetchUserThenUpdateDefaultRoute();
+                navigation.navigate('SellerAdDetails', {id: _id, from: 'AddACar'});
+            }
+        } catch(e) {
+            dispatch(error(e.message));
+        }
+    }
+
+    const { width, height } = Dimensions.get('window');
+
+    const wrapperProps = {
+        flexDirection: 'column',
+        justifyContent: 'flex-start',
+        marginTop: 0,
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        width: '90%'
+    }
+
+    useEffect(() => {
+        resetFields();
+    }, []);
+
+    return (
+        <KeyboardAvoidingView
+            style={{
+                flex: 1,
+                flexDirection: 'column',
+                justifyContent: 'center',
+            }}
+            enabled
+            behavior={Platform.OS === "ios" ? "padding" : "height"}
+            keyboardVerticalOffset={10}
+        >
+            <ReusableScrollView>
+                <ReusableOuterWrapper
+                    style={{
+                        justifyContent: 'flex-start',
+                        alignItems: 'flex-start',
+                        backgroundColor: 'white',
+                        marginBottom: 100,
+                        width: width,
+                        minHeight: height
+                    }}
+                >
+                    {makeModal &&
+                        <Make
+                            makeModal={makeModal}
+                            showHideMakeModal={showHideMakeModal}
+                            handleMakeText={handleMakeText}
+                        />
+                    }
+                    {bodyColorModal &&
+                        <BodyColor
+                            bodyColorModal={bodyColorModal}
+                            showHideBodyColorModal={showHideBodyColorModal}
+                            handleBodyColor={handleBodyColor}
+                        />
+                    }
+                    {modelModal &&
+                        <CarModel
+                            modelModal={modelModal}
+                            showHideModelModal={showHideModelModal}
+                            handleModel={handleModel}
+                            brand={carMake}
+                        />
+                    }
+                    {fuelModal && (<GenericDropdown
+                        displayModal={fuelModal}
+                        showHideModal={setFuelModal}
+                        handleSelect={setFuelType}
+                        list={FUEL_TYPES}
+                        title="Fuel type"
+                    />)}
+
+                    {vehicleModal &&
+                        <GenericDropdown
+                            displayModal={vehicleModal}
+                            showHideModal={setVehicleModal}
+                            handleSelect={setVehicleType}
+                            list={VEHICLE_TYPES}
+                            title="Vehicle type"
+                        />
+                    }
+
+                    {conditionModal &&
+                        (<GenericDropdown
+                            displayModal={conditionModal}
+                            showHideModal={setConditionModal}
+                            handleSelect={setCondition}
+                            list={CONDITIONS}
+                            title="Condition"
+                        />)
+                    }
+                    <ScreenTopNav
+                        style={{
+                            width: width,
+                            justifyContent: 'space-between',
+                            left: 1,
+                            backgroundColor: 'white',
+                            height: 100
+                        }}
+                    >
+                        <Wrapper
+                            flexDirection='row'
+                            marginLeft={25}
+                        >
+                            <BackButton
+                                iconName="arrowleft"
+                                handleOnPress={() => { navigation.goBack() }}
+                                iconSize={38}
+                                iconColor={CustomTheme.colors.cornflowerBlue}
+                            />
+                            <Text
+                                textTransform='uppercase'
+                                fontFamily='BebasNeue-Regular'
+                                fontSize={34}
+                                marginTop={16}
+                                marginBottom={16}
+                                lineHeight={40}
+                            >
+                                vehicle data
+                            </Text>
+                        </Wrapper>
+                        <Wrapper
+                            position='relative'
+                            marginRight={25}
+                        >
+                            <ReusableTile
+                                style={{
+                                    width: 75,
+                                    height: 50,
+                                    marginRight: 0,
+                                    borderTopRightRadius: 10,
+                                    borderTopLeftRadius: 10,
+                                    borderBottomLeftRadius: 10,
+                                    borderBottomRightRadius: 10,
+                                    backgroundColor: 'cornflowerBlue'
+                                }}
+                                disabled={true}
+                                handleTileSelection={() => { handleNavigate(navigation, 'FindYourCar') }}
+                                shadowColor={CustomTheme.colors.periwinkleGray}
+                            >
+                                <ReusableIcon
+                                    iconName='camera'
+                                    iconSize={24}
+                                    iconColor='white'
+                                    feather={true}
+                                />
+                            </ReusableTile>
+                        </Wrapper>
+                    </ScreenTopNav>
+
+                    {state.loading && <Loader />}
+
+                    <Wrapper
+                        width='100%'
+                        height={125}
+                        paddingLeft={0}
+                        marginBottom={20}
+                    >
+                        <Wrapper
+                            justifyContent='space-between'
+                            position='absolute'
+                            zIndex={2}
+                            width={34}
+                            height={34}
+                            borderTopRightRadius={17}
+                            borderTopLeftRadius={17}
+                            borderBottomLeftRadius={17}
+                            borderBottomRightRadius={17}
+                            backgroundColor='white'
+                            left='45%'
+                            top='80%'
+                        >
+                            <ReusableButton
+                                style={{
+                                    width: 34,
+                                    height: 34,
+                                    borderTopRightRadius: 17,
+                                    borderTopLeftRadius: 17,
+                                    borderBottomLeftRadius: 17,
+                                    borderBottomRightRadius: 17,
+                                    backgroundColor: 'white',
+                                }}
+                                handleOnPress={() => { console.log('Go') }}
+                            >
+                                <Text
+                                    fontFamily='Poppins-Bold'
+                                    fontSize={12}
+                                    lineHeight={32}
+                                    height={34}
+                                >
+                                    Or
+                                </Text>
+                            </ReusableButton>
+                        </Wrapper>
+                        <Wrapper
+                            width={width}
+                            flexDirection='row'
+                            justifyContent='space-between'
+                            height={111}
+                            backgroundColor='zircon'
+                        >
+                            <ReusableInputText
+                                style={{
+                                    width: '110%',
+                                    height: 52,
+                                    color: 'raven',
+                                    fontSize: 13,
+                                    borderBottomColor: 'alto',
+                                    borderBottomWidth: 1,
+                                    marginLeft: 25
+                                }}
+                                borderless={true}
+                                color={CustomTheme.colors['raven']}
+                                placeholder="Type your registration plate or VIN n°"
+                                handleTextChange={text => { handlePlateOrVin(text) }}
+                                placeholderTextColor={CustomTheme.colors.mineShaft}
+                            />
+                            <ReusableTile
+                                style={{
+                                    height: 52,
+                                    width: 54,
+                                    borderTopRightRadius: 10,
+                                    borderTopLeftRadius: 10,
+                                    borderBottomLeftRadius: 10,
+                                    borderBottomRightRadius: 10,
+                                    backgroundColor: 'cornflowerBlue',
+                                    marginRight: 25
+                                }}
+                                handleTileSelection={() => {
+                                    searchByPlateOrVin();
+                                }}
+                                shadowColor={CustomTheme.colors.periwinkleGray}
+                                activeOpacity={1}
+                            >
+                                <ReusableIcon
+                                    iconName='md-search'
+                                    iconSize={30}
+                                    iconColor='white'
+                                    ionicons={true}
+                                />
+                            </ReusableTile>
+                        </Wrapper>
+                        
+                    </Wrapper>
+
+
+                    
+                    {vehicleSearchError !== '' && 
+                    <InputBottomBorder>
+                        <Wrapper
+                                {...wrapperProps}
+                                height={15}
+                                marginBottom={0}
+                            >
+                                <Error>
+                                    {vehicleSearchError}
+                                </Error>
+                            </Wrapper>
+                            
+                            </InputBottomBorder>
+                        }
+                    <InputBottomBorder>
+                        <Title>Make</Title>
+                        <InputContainer>
+                            <ReusableInputText
+                                style={{
+                                    width: '100%',
+                                    height: '100%',
+                                    color: 'raven',
+                                    fontSize: 16,
+                                    borderBottomColor: 'transparent',
+                                    borderBottomWidth: 0,
+                                    paddingLeft: 0,
+                                    backgroundColor: 'transparent',
+                                    paddingTop: 20
+                                }}
+                                // borderless={true}
+                                color={CustomTheme.colors['black']}
+                                placeholder=""
+                                defaultValue={carMake}
+                                value={carMake}
+                                onFocus={() => { showHideMakeModal() }}
+                                placeholderTextColor={CustomTheme.colors['raven']}
+                            />
+                        </InputContainer>
+                    </InputBottomBorder>
+
+                    <InputBottomBorder>
+                        <Title>First registration</Title>
+                        <InputContainer>
+                            <ReusableInputText
+                                style={{
+                                    width: '100%',
+                                    height: '100%',
+                                    color: 'raven',
+                                    fontSize: 16,
+                                    borderBottomColor: 'transparent',
+                                    borderBottomWidth: 0,
+                                    backgroundColor: 'transparent',
+                                    paddingLeft: 0,
+                                    paddingTop: 20
+                                }}
+                                borderless={true}
+                                // color={CustomTheme.colors['black']}
+                                // placeholder="First registration"
+                                handleTextChange={text => { handleRegistration(text) }}
+                                defaultValue={registration}
+                                placeholderTextColor={CustomTheme.colors['raven']}
+                            />
+                        </InputContainer>
+                        {!regError && <ErrorContainer><Error>Please enter a valid South African ID number.</Error></ErrorContainer>}
+                    </InputBottomBorder>
+
+                    <InputBottomBorder>
+                        <Title>Year</Title>
+                        <InputContainer>
+                            <ReusableInputText
+                                style={{
+                                    width: '100%',
+                                    height: '100%',
+                                    color: 'raven',
+                                    fontSize: 16,
+                                    borderBottomColor: 'alto',
+                                    borderBottomWidth: 0,
+                                    paddingLeft: 0,
+                                    backgroundColor: 'transparent',
+                                    paddingLeft: 0,
+                                    paddingTop: 20
+                                }}
+                                borderless={true}
+                                color={CustomTheme.colors['black']}
+                                // placeholder='Year'
+                                handleTextChange={text => { handleYear(text) }}
+                                placeholderTextColor={CustomTheme.colors['raven']}
+                                defaultValue={year}
+                                keyboardType='phone-pad'
+                            />
+                        </InputContainer>
+                    </InputBottomBorder>
+
+                    <InputBottomBorder>
+                        <Title>Body color</Title>
+                        <InputContainer>
+                            <ReusableInputText
+                                style={{
+                                    width: '100%',
+                                    height: '100%',
+                                    // height: 52,
+                                    color: 'raven',
+                                    fontSize: 16,
+                                    // lineHeight: 22.4,
+                                    borderBottomColor: 'alto',
+                                    borderBottomWidth: 0,
+                                    backgroundColor: 'transparent',
+                                    paddingLeft: 0,
+                                    paddingTop: 20
+                                }}
+                                borderless={true}
+                                color={CustomTheme.colors['black']}
+                                // placeholder="Body color"
+                                onFocus={() => { showHideBodyColorModal() }}
+                                defaultValue={bodyColor || ''}
+                                value={bodyColor}
+                                placeholderTextColor={CustomTheme.colors['raven']}
+                            />
+                        </InputContainer>
+                    </InputBottomBorder>
+
+                    {carMake ? <InputBottomBorder>
+                        <Title>Model</Title>
+                        <InputContainer>
+                            <ReusableInputText
+                                style={{
+                                    width: '100%',
+                                    height: '100%',
+                                    // height: 52,
+                                    color: 'raven',
+                                    fontSize: 16,
+                                    // lineHeight: 22.4,
+                                    borderBottomColor: 'transparent',
+                                    borderBottomWidth: 0,
+                                    paddingLeft: 0,
+                                    backgroundColor: 'transparent',
+                                    paddingLeft: 0,
+                                    paddingTop: 20
+                                }}
+                                borderless={true}
+                                color={CustomTheme.colors['black']}
+                                // placeholder="Model"
+                                defaultValue={model || ''}
+                                value={model}
+                                handleTextChange={text => { handleModel(text) }}
+                                onFocus={() => { showHideModelModal() }}
+                                placeholderTextColor={CustomTheme.colors['raven']}
+                            />
+                        </InputContainer>
+                    </InputBottomBorder> : <></>}
+
+                    <InputBottomBorder>
+                        <Title>Fuel type</Title>
+                        <InputContainer>
+                            <ReusableInputText
+                                style={{
+                                    width: '100%',
+                                    height: '100%',
+                                    // height: 52,
+                                    color: 'raven',
+                                    fontSize: 16,
+                                    // lineHeight: 22.4,
+                                    borderBottomColor: 'alto',
+                                    borderBottomWidth: 0,
+                                    backgroundColor: 'transparent',
+                                    paddingLeft: 0,
+                                    paddingTop: 20
+                                }}
+                                borderless={true}
+                                color={CustomTheme.colors['black']}
+                                // placeholder="Body color"
+                                onFocus={() => { setFuelModal(!fuelModal) }}
+                                defaultValue={fuelType ? mapValueToDisplay(fuelType, FUEL_TYPES) : ''}
+                                value={mapValueToDisplay(fuelType, FUEL_TYPES)}
+                                placeholderTextColor={CustomTheme.colors['raven']}
+                            />
+                        </InputContainer>
+                    </InputBottomBorder>
+
+                    <InputBottomBorder>
+                        <Title>Vehicle type</Title>
+                        <InputContainer>
+                            <ReusableInputText
+                                style={{
+                                    width: '100%',
+                                    height: '100%',
+                                    // height: 52,
+                                    color: 'raven',
+                                    fontSize: 16,
+                                    // lineHeight: 22.4,
+                                    borderBottomColor: 'alto',
+                                    borderBottomWidth: 0,
+                                    backgroundColor: 'transparent',
+                                    paddingLeft: 0,
+                                    paddingTop: 20
+                                }}
+                                borderless={true}
+                                color={CustomTheme.colors['black']}
+                                // placeholder="Body color"
+                                onFocus={() => { setVehicleModal(!vehicleModal) }}
+                                defaultValue={vehicleType ? mapValueToDisplay(vehicleType, VEHICLE_TYPES) : ''}
+                                value={mapValueToDisplay(vehicleType, VEHICLE_TYPES)}
+                                placeholderTextColor={CustomTheme.colors['raven']}
+                            />
+                        </InputContainer>
+                    </InputBottomBorder>
+
+                    <InputBottomBorder>
+                        <Title>Vehicle condition</Title>
+                        <InputContainer>
+                            <ReusableInputText
+                                style={{
+                                    width: '100%',
+                                    height: '100%',
+                                    // height: 52,
+                                    color: 'raven',
+                                    fontSize: 16,
+                                    // lineHeight: 22.4,
+                                    borderBottomColor: 'alto',
+                                    borderBottomWidth: 0,
+                                    backgroundColor: 'transparent',
+                                    paddingLeft: 0,
+                                    paddingTop: 20
+                                }}
+                                borderless={true}
+                                color={CustomTheme.colors['black']}
+                                onFocus={() => { setConditionModal(!conditionModal) }}
+                                defaultValue={condition ? mapValueToDisplay(condition, CONDITIONS) : ''}
+                                value={mapValueToDisplay(condition, CONDITIONS)}
+                                placeholderTextColor={CustomTheme.colors['raven']}
+                            />
+                        </InputContainer>
+                    </InputBottomBorder>
+
+                    {state.error !== '' && <Wrapper
+                        {...wrapperProps}
+                        height={15}
+                        marginBottom={0}
+                        marginTop={30}
+                    >
+                        <Error>
+                            Error: {state.error}
+                        </Error>
+                    </Wrapper>}
+
+                    {/* <Button disabled={isNext} bgColor={isNext ? '#5A89EA' : '#5A89EA'} onPress={() => { nextStep() }}>
+                        <ButtonTitle color={"#fff"} fontsize={'16px'} fontfamily={'Poppins-Medium'}>Next</ButtonTitle>
+                    </Button> */}
+                    <Wrapper
+                        marginTop={36}
+                        width='100%'
+                    >
+                        <PrimaryButton
+                            handleButtonClick={() => { isNext && nextStep() }}
+                            text='Next'
+                            bgColor={isNext ? 'cornflowerBlue' : 'cadetBlue'}
+                            textColor='white'
+                        />
+                    </Wrapper>
+
+                </ReusableOuterWrapper>
+            </ReusableScrollView>
+        </KeyboardAvoidingView>
+    );
+}
