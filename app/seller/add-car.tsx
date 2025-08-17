@@ -3,6 +3,7 @@ import BodyColor from '@/components/Modals/BodyColor';
 import GenericDropdown from '@/components/Modals/GenericDropdown';
 import Make from '@/components/Modals/Make';
 import CarModel from '@/components/Modals/Model';
+import ScreenTopNav from '@/components/nav/TopNav';
 import BackButton from '@/components/Reusable/BackButton';
 import ReusableButton from '@/components/Reusable/Button';
 import ReusableIcon from '@/components/Reusable/Icon';
@@ -11,105 +12,12 @@ import Loader from '@/components/Reusable/Loader';
 import ReusableTile from '@/components/Reusable/Tile';
 import ReusableOuterWrapper from '@/components/Reusable/Wrapper/Outer';
 import ReusableScrollView from '@/components/Reusable/Wrapper/ScrollView';
+import * as SellerStyles from '@/components/Stylers/Seller';
 import Text from '@/components/Text';
 import Wrapper from '@/components/Wrapper';
-import ScreenTopNav from '@/navigation/TopNav';
-import { vehicleAPI } from '@/services';
-import Auth from '@/services/AuthService';
-import { error, loading, vehicleState } from '@/slices/vehicle';
 import CustomTheme from '@/theme';
-import { fetchUserThenUpdateDefaultRoute, mapFromUserAttributes, navigateToAScreen } from '@/utils';
 import React, { useEffect, useState } from 'react';
 import { Dimensions, KeyboardAvoidingView, Platform } from 'react-native';
-import styled from 'styled-components/native';
-
-const DropDownWrapper = styled.View`
-    flex-direction: column;
-    justify-content: flex-start;
-    margin-top: 0;
-    margin-bottom: 20px;
-    margin-left: auto;
-    margin-right: auto;
-    width: 90%;
-`;
-
-const Error = styled.Text`
-    font-family:'Poppins-Medium';
-    font-weight:600;
-    font-size:12px;
-    color:#f01;
-    text-align:center;
-`;
-
-const NoError = styled.View`
-    font-family:'Poppins-Medium';
-    font-weight:600;
-    font-size:12px;
-    color:#f01;
-    text-align:center;
-`;
-
-const InputBottomBorder = styled.View`
-    flex-direction: column;
-    justify-content: flex-start;
-    margin-top: 0;
-    margin-bottom: 20px;
-    margin-left: auto;
-    margin-right: auto;
-    /* background-color: #f01; */
-    height: 60px;
-    width: 90%;
-    padding: 0;
-    border-bottom-width: 1px;
-    border-bottom-color: #D4D7DD;
-    position: relative;
-`;
-
-const InputContainer = styled.View`
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: transparent;
-    padding: 0;
-    margin: 0;
-`;
-
-const Title = styled.Text`
-    font-size: 12px;
-    color: #6F7889;
-`;
-
-const ButtonTitle = styled.Text`
-    font-family: ${({ fontfamily }) => fontfamily ? fontfamily : 'Poppins-Bold'};
-    letter-spacing: .5px;
-    font-weight: ${({ fontWeight }) => fontWeight ? fontWeight : 500};;
-    font-size: ${({ fontsize }) => fontsize ? fontsize : '20px'};
-    color: ${({ color }) => color || '#000000'};
-    text-align: ${({ align }) => align || 'left'};
-`;
-
-const Button = styled.TouchableOpacity`
-    margin: 30px 20px 20px;
-    font-family: ${({ fontfamily }) => fontfamily ? fontfamily : 'Poppins-Bold'};
-    letter-spacing: .5px;
-    font-size: ${({ fontsize }) => fontsize ? fontsize : '20px'};
-    border-radius: 10px;
-    background: ${({ bgColor }) => bgColor ? bgColor : '#5A89EA'};
-    display: flex;
-    align-items: center;
-    padding: 12px 20px;
-    width: 90%;
-    text-align: ${({ align }) => align || 'left'};
-`;
-
-const ErrorContainer = styled.View`
-    padding: 0 10px;
-    position: absolute;
-    right: 0;
-    bottom: -20px;
-`
 
 const CONDITIONS = [
     { label: "New", value: "new" },
@@ -138,9 +46,6 @@ const FUEL_TYPES = [
 
 export default function AddACar({ navigation, route }) {
 
-    const dispatch = useDispatch();
-    const state = useSelector(vehicleState);
-
     const [vehicleSearchError, setVehicleSearchError] = useState('')
 
     const [makeModal, setMakeModal] = useState(false);
@@ -148,6 +53,10 @@ export default function AddACar({ navigation, route }) {
     const [regError, setRegError] = useState(true);
     const [customerdetails, setCustomerDetails] = useState(null);
     const [mmcode, setMMCode] = useState(null)
+
+    const [error, setError] = useState('');
+    const [loading, setLoading] = useState(false);
+
     const showHideMakeModal = () => {
         setMakeModal(!makeModal);
     };
@@ -206,7 +115,7 @@ export default function AddACar({ navigation, route }) {
 
     const [condition, setCondition] = useState(null);
     const [conditionModal, setConditionModal] = useState(false);
-    const handleCondition = text => {
+    const handleCondition = (text: string) => {
         setCondition(text);
     }
 
@@ -222,44 +131,10 @@ export default function AddACar({ navigation, route }) {
         return null;
     }
 
-    /*const searchByPlateOrVin = async () => {
-        try {
-            if (!plateVin) {
-                dispatch(error("Please enter Vin!"));
-            } else {
-                dispatch(loading(true));
-                const response = await vehicleAPI.addVehicleWithVin(plateVin);
-                dispatch(loading(false));
-                if (response) {
-                    if (Object.keys(response.vehicle).length > 0) {
-                        const {vehicle: {color, registration, brand, model, year, mmcode}} = response;
-                        setBodyColor(color);
-                        setRegistration(registration);
-                        setCarMake(brand);
-                        setModel(model);
-                        if (year) {
-                            setYear(year.toString());
-                        }
-                        setMMCode(mmcode);
-                        setVehicleSearchError('');
-                    } else {
-                        setVehicleSearchError('Vehicle not found, please enter details below!');
-                    }
-                    
-                }
-                
-            }
-
-        } catch (e) {
-            debugger;
-            dispatch(error(e.message));
-        }
-    }*/
-
     const searchByPlateOrVin = async () => {
 
         if (!plateVin) {
-            dispatch(error("Please enter Vin!"));
+            setError("Please enter Vin!");
         } else {
             setVehicleSearchError('Vehicle not found, please enter details below!');
         }
@@ -267,11 +142,11 @@ export default function AddACar({ navigation, route }) {
 
     const isNext = condition !== null && carMake !== null && bodyColor !== null && registration !== null && year !== null && model !== null && fuelType !== 'Select fuel type...' && vehicleType !== 'Select vehicle type...';
 
-    const handleNavigate = (nav, screen) => {
-        navigateToAScreen(nav, screen);
+    const handleNavigate = (screen: string) => {
+        //navigateToAScreen(nav, screen);
     };
 
-    useEffect(() => {
+    /*useEffect(() => {
         resetFields();
         dispatch(error(''));
         dispatch(loading(false));
@@ -293,6 +168,23 @@ export default function AddACar({ navigation, route }) {
             setModel(model);
             setYear(year.toString());
         }
+    }, [route]);*/
+
+    useEffect(() => {
+        async function load() {
+            try {
+                resetFields();
+                setError('');
+                setLoading(false);
+                //get customer details here
+                //check for route
+            } catch (e) {
+                setError(e.message);
+                setLoading(false);
+            }
+        }
+
+        load();
     }, [route]);
 
     const resetFields = () => {
@@ -306,7 +198,7 @@ export default function AddACar({ navigation, route }) {
         handleModel('');
     }
 
-    const nextStep = async () => {
+    /*const nextStep = async () => {
         try {
             if (isNext) {
                 const { customer, location } = customerdetails
@@ -336,7 +228,7 @@ export default function AddACar({ navigation, route }) {
         } catch(e) {
             dispatch(error(e.message));
         }
-    }
+    }*/
 
     const { width, height } = Dimensions.get('window');
 
@@ -348,10 +240,6 @@ export default function AddACar({ navigation, route }) {
         marginRight: 'auto',
         width: '90%'
     }
-
-    useEffect(() => {
-        resetFields();
-    }, []);
 
     return (
         <KeyboardAvoidingView
@@ -470,7 +358,7 @@ export default function AddACar({ navigation, route }) {
                                     backgroundColor: 'cornflowerBlue'
                                 }}
                                 disabled={true}
-                                handleTileSelection={() => { handleNavigate(navigation, 'FindYourCar') }}
+                                handleTileSelection={() => { handleNavigate('FindYourCar') }}
                                 shadowColor={CustomTheme.colors.periwinkleGray}
                             >
                                 <ReusableIcon
@@ -483,7 +371,7 @@ export default function AddACar({ navigation, route }) {
                         </Wrapper>
                     </ScreenTopNav>
 
-                    {state.loading && <Loader />}
+                    {loading && <Loader />}
 
                     <Wrapper
                         width='100%'
@@ -581,22 +469,22 @@ export default function AddACar({ navigation, route }) {
 
                     
                     {vehicleSearchError !== '' && 
-                    <InputBottomBorder>
+                    <SellerStyles.InputBottomBorder>
                         <Wrapper
                                 {...wrapperProps}
                                 height={15}
                                 marginBottom={0}
                             >
-                                <Error>
+                                <SellerStyles.Error>
                                     {vehicleSearchError}
-                                </Error>
+                                </SellerStyles.Error>
                             </Wrapper>
                             
-                            </InputBottomBorder>
+                            </SellerStyles.InputBottomBorder>
                         }
-                    <InputBottomBorder>
-                        <Title>Make</Title>
-                        <InputContainer>
+                    <SellerStyles.InputBottomBorder>
+                        <SellerStyles.Title>Make</SellerStyles.Title>
+                        <SellerStyles.InputContainer>
                             <ReusableInputText
                                 style={{
                                     width: '100%',
@@ -617,12 +505,12 @@ export default function AddACar({ navigation, route }) {
                                 onFocus={() => { showHideMakeModal() }}
                                 placeholderTextColor={CustomTheme.colors['raven']}
                             />
-                        </InputContainer>
-                    </InputBottomBorder>
+                        </SellerStyles.InputContainer>
+                    </SellerStyles.InputBottomBorder>
 
-                    <InputBottomBorder>
-                        <Title>First registration</Title>
-                        <InputContainer>
+                    <SellerStyles.InputBottomBorder>
+                        <SellerStyles.Title>First registration</SellerStyles.Title>
+                        <SellerStyles.InputContainer>
                             <ReusableInputText
                                 style={{
                                     width: '100%',
@@ -642,13 +530,13 @@ export default function AddACar({ navigation, route }) {
                                 defaultValue={registration}
                                 placeholderTextColor={CustomTheme.colors['raven']}
                             />
-                        </InputContainer>
-                        {!regError && <ErrorContainer><Error>Please enter a valid South African ID number.</Error></ErrorContainer>}
-                    </InputBottomBorder>
+                        </SellerStyles.InputContainer>
+                        {!regError && <SellerStyles.ErrorContainer><SellerStyles.Error>Please enter a valid South African ID number.</SellerStyles.Error></SellerStyles.ErrorContainer>}
+                    </SellerStyles.InputBottomBorder>
 
-                    <InputBottomBorder>
-                        <Title>Year</Title>
-                        <InputContainer>
+                    <SellerStyles.InputBottomBorder>
+                        <SellerStyles.Title>Year</SellerStyles.Title>
+                        <SellerStyles.InputContainer>
                             <ReusableInputText
                                 style={{
                                     width: '100%',
@@ -670,12 +558,12 @@ export default function AddACar({ navigation, route }) {
                                 defaultValue={year}
                                 keyboardType='phone-pad'
                             />
-                        </InputContainer>
-                    </InputBottomBorder>
+                        </SellerStyles.InputContainer>
+                    </SellerStyles.InputBottomBorder>
 
-                    <InputBottomBorder>
-                        <Title>Body color</Title>
-                        <InputContainer>
+                    <SellerStyles.InputBottomBorder>
+                        <SellerStyles.Title>Body color</SellerStyles.Title>
+                        <SellerStyles.InputContainer>
                             <ReusableInputText
                                 style={{
                                     width: '100%',
@@ -698,12 +586,12 @@ export default function AddACar({ navigation, route }) {
                                 value={bodyColor}
                                 placeholderTextColor={CustomTheme.colors['raven']}
                             />
-                        </InputContainer>
-                    </InputBottomBorder>
+                        </SellerStyles.InputContainer>
+                    </SellerStyles.InputBottomBorder>
 
-                    {carMake ? <InputBottomBorder>
-                        <Title>Model</Title>
-                        <InputContainer>
+                    {carMake ? <SellerStyles.InputBottomBorder>
+                        <SellerStyles.Title>Model</SellerStyles.Title>
+                        <SellerStyles.InputContainer>
                             <ReusableInputText
                                 style={{
                                     width: '100%',
@@ -728,12 +616,12 @@ export default function AddACar({ navigation, route }) {
                                 onFocus={() => { showHideModelModal() }}
                                 placeholderTextColor={CustomTheme.colors['raven']}
                             />
-                        </InputContainer>
-                    </InputBottomBorder> : <></>}
+                        </SellerStyles.InputContainer>
+                    </SellerStyles.InputBottomBorder> : <></>}
 
-                    <InputBottomBorder>
-                        <Title>Fuel type</Title>
-                        <InputContainer>
+                    <SellerStyles.InputBottomBorder>
+                        <SellerStyles.Title>Fuel type</SellerStyles.Title>
+                        <SellerStyles.InputContainer>
                             <ReusableInputText
                                 style={{
                                     width: '100%',
@@ -756,12 +644,12 @@ export default function AddACar({ navigation, route }) {
                                 value={mapValueToDisplay(fuelType, FUEL_TYPES)}
                                 placeholderTextColor={CustomTheme.colors['raven']}
                             />
-                        </InputContainer>
-                    </InputBottomBorder>
+                        </SellerStyles.InputContainer>
+                    </SellerStyles.InputBottomBorder>
 
-                    <InputBottomBorder>
-                        <Title>Vehicle type</Title>
-                        <InputContainer>
+                    <SellerStyles.InputBottomBorder>
+                        <SellerStyles.Title>Vehicle type</SellerStyles.Title>
+                        <SellerStyles.InputContainer>
                             <ReusableInputText
                                 style={{
                                     width: '100%',
@@ -784,12 +672,12 @@ export default function AddACar({ navigation, route }) {
                                 value={mapValueToDisplay(vehicleType, VEHICLE_TYPES)}
                                 placeholderTextColor={CustomTheme.colors['raven']}
                             />
-                        </InputContainer>
-                    </InputBottomBorder>
+                        </SellerStyles.InputContainer>
+                    </SellerStyles.InputBottomBorder>
 
-                    <InputBottomBorder>
-                        <Title>Vehicle condition</Title>
-                        <InputContainer>
+                    <SellerStyles.InputBottomBorder>
+                        <SellerStyles.Title>Vehicle condition</SellerStyles.Title>
+                        <SellerStyles.InputContainer>
                             <ReusableInputText
                                 style={{
                                     width: '100%',
@@ -811,18 +699,18 @@ export default function AddACar({ navigation, route }) {
                                 value={mapValueToDisplay(condition, CONDITIONS)}
                                 placeholderTextColor={CustomTheme.colors['raven']}
                             />
-                        </InputContainer>
-                    </InputBottomBorder>
+                        </SellerStyles.InputContainer>
+                    </SellerStyles.InputBottomBorder>
 
-                    {state.error !== '' && <Wrapper
+                    {error !== '' && <Wrapper
                         {...wrapperProps}
                         height={15}
                         marginBottom={0}
                         marginTop={30}
                     >
-                        <Error>
-                            Error: {state.error}
-                        </Error>
+                        <SellerStyles.Error>
+                            Error: {error}
+                        </SellerStyles.Error>
                     </Wrapper>}
 
                     {/* <Button disabled={isNext} bgColor={isNext ? '#5A89EA' : '#5A89EA'} onPress={() => { nextStep() }}>

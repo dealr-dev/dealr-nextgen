@@ -119,3 +119,61 @@ export const getDates = () => {
     })
 }
 
+export const mapFromUserAttributes = (attributes) => {
+    return {
+        condition: typeof attributes['custom:condition'] !== 'undefined' ? attributes['custom:condition'] : null,
+        categories: typeof attributes['custom:categories'] !== 'undefined' ? mapToAttributeArray(attributes['custom:categories']) : [],
+        budget: typeof attributes['custom:budget'] !== 'undefined' ? attributes['custom:budget'] : null,
+        role: attributes['custom:role'],
+        customer: attributes['custom:customer'],
+        seller: attributes['custom:seller'],
+        dealership: attributes['custom:dealership'],
+        features: typeof attributes['custom:features'] !== 'undefined' ? mapToAttributeArray(attributes['custom:features']) : [],
+        brands: typeof attributes['custom:brands'] !== 'undefined' ? mapToAttributeArray(attributes['custom:brands']) : [],
+        years: typeof attributes['custom:years'] !== 'undefined' ? mapToObject(attributes['custom:years']) : null,
+        prices: typeof attributes['custom:prices'] !== 'undefined' ? mapToObject(attributes['custom:prices']) : null,
+        sort: typeof attributes['custom:sort'] !== 'undefined' ? attributes['custom:sort'] : null,
+        location: typeof attributes['custom:location'] !== 'undefined' ? mapToObject(attributes['custom:location']) : null,
+        avatar: attributes['custom:avatar'],
+        route: attributes['custom:route']
+    }
+};
+
+const mapToAttributeArray = (stringvalue) => {
+    if (stringvalue) {
+
+        return JSON.parse(stringvalue);
+    }
+
+    return []
+};
+
+const mapToObject = (stringvalue) => {
+    if (stringvalue) {
+        return JSON.parse(stringvalue);
+    }
+    return null;
+};
+
+export const stringListsAreTheSame = (listA, listB) => {
+    if (listA && listB && listA.length === listB.length) {
+        return listA.sort().toString() === listB.sort().toString();
+    }
+
+    return false;
+}
+
+export const stringListReturnWhatsInAandExistsInB = (listA, listB) => {
+    if (listA && listB && listA.length > 0 && listB.length > 0) {
+        return listA.reduce((toreturn, curr) => {
+            if (listB.includes(curr)) {
+                return [...toreturn, curr];
+            } else {
+                return toreturn;
+            }
+        }, []);
+    }
+
+    return null;
+}
+
