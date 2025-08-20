@@ -114,7 +114,7 @@ export default function Filtering() {
                         </ReusableText>
                     </ReusableInnerWrapper>
                     <ReusableTile style={annoyingStyle5} handleTileSelection={() => addFilters()} shadowColor={CustomTheme.colors.periwinkleGray}>
-                        <ReusableIcon iconName='md-checkmark' iconSize={24} iconColor='white' ionicons={true} />
+                        <ReusableIcon iconName='checkmark' iconSize={24} iconColor='white' ionicons={true} />
                     </ReusableTile>
                 </ScreenTopNav>
 

@@ -381,7 +381,7 @@ export default function SetAvailability() {
                             shadowColor={CustomTheme.colors.periwinkleGray}
                         >
                             <ReusableIcon
-                                iconName='md-checkmark'
+                                iconName='checkmark'
                                 iconSize={24}
                                 iconColor='white'
                                 ionicons={true}

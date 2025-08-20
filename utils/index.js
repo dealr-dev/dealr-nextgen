@@ -177,3 +177,7 @@ export const stringListReturnWhatsInAandExistsInB = (listA, listB) => {
     return null;
 }
 
+export const getS3BucketFile = async (file) => {
+    return Promise.resolve(true);
+}
+
