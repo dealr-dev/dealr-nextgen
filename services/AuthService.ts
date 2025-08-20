@@ -1,7 +1,7 @@
+import { mapFromUserAttributes } from "@/utils";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
-import jwtDecode from 'jwt-decode';
-
+import { jwtDecode } from 'jwt-decode';
 export type UserRole = 'customer-buyer' | 'customer-seller' | 'customer-agent';
 export type RouteAfterAuth = 'Selfie' | 'Dashboard' | 'Verification';
 
@@ -106,7 +106,7 @@ console.log('Challenge RES', res);
       },
     });
 
-    return res.data.attributes;
+    return mapFromUserAttributes(res.data.attributes);
   }
 
   /**
@@ -124,6 +124,10 @@ console.log('Challenge RES', res);
     }
 
     return token;
+  }
+
+  async updateUserAttributes(): Promise<any> {
+    
   }
 
   /**

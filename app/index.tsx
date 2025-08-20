@@ -6,9 +6,10 @@ import { useEffect } from "react";
 import { Dimensions, SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import { useAuth } from './context/AuthContext';
 
+
 export default function WelcomeScreen() {
   const router = useRouter();
-  const { signIn } = useAuth();
+  const { user } = useAuth();
   const { width } = Dimensions.get('window');
 
   //const handleBuyer = () => signIn('buyer');
@@ -35,8 +36,34 @@ export default function WelcomeScreen() {
   const handleLogin = () => router.push('/auth/sign-in');
 
   useEffect(() => {
-    //router.push('/auth/sign-in');
-  }, [])
+    
+    load();
+    async function load() {
+      try {
+        if (user) {
+          console.log('CONTEXT USER', user)
+          const {role, route} = user;
+          switch (role) {
+            case 'customer-seller':
+              router.push('/seller/set-availability');
+              break;
+  
+            case 'customer-buyer':
+              router.push('/buyer/listings');
+              break;
+  
+            default:
+              router.push('/executive/all-set');
+              break;
+          }
+        }
+      }
+      catch(e) {
+        console.log('ERR', e.message);
+      }
+    }
+
+  }, [user])
 
   return (
     <SafeAreaView style={{ flex: 1 }}>

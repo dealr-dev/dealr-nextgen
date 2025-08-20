@@ -8,10 +8,12 @@ import ReusableScrollView from '@/components/Reusable/Wrapper/ScrollView';
 import Text from '@/components/Text';
 import Wrapper from '@/components/Wrapper';
 import { scheduleAPI } from '@/services';
-import Auth from '@/services/AuthService';
+//import { useAuth } from '../context/AuthContext';
+import AuthService from '@/services/AuthService';
 import CustomTheme from '@/theme';
-import { getDates, highlightSelectedTile, mapFromUserAttributes, stringListReturnWhatsInAandExistsInB, stringListsAreTheSame } from '@/utils';
+import { getDates, highlightSelectedTile, stringListReturnWhatsInAandExistsInB, stringListsAreTheSame } from '@/utils';
 import Constants from 'expo-constants';
+import { useRouter } from 'expo-router';
 import moment from 'moment';
 import React, { Fragment, useEffect, useState } from 'react';
 import { Animated, Dimensions, FlatList } from 'react-native';
@@ -87,14 +89,14 @@ export default function SetAvailability() {
 
     const [userAttributes, setUserAttributes] = useState(null);
 
-    const [user, setUser] = useState(null);
-
     const [error, setError] = useState('');
 
     const [loading, setLoading] = useState(false);
     const [softloading, setSoftLoading] = useState(false);
 
     const [touched, setTouched] = useState(false);
+
+    const router = useRouter();
 
     const handleTimeSelection = slot => {
         setTouched(true);
@@ -140,31 +142,20 @@ export default function SetAvailability() {
     const viewConfigRef = React.useRef({ viewAreaCoveragePercentThreshold: 50 });
 
     useEffect(() => {
-        //initializeAllSellerAndSlots();
+        initializeAllSellerAndSlots();
 
         async function initializeAllSellerAndSlots () {
             try {
                 setLoading(true);
 
-                const [user, {slots}] = await Promise.all([
-                    Auth.currentAuthenticatedUser(),
-                    scheduleAPI.getSlots()
-                ])
+                const [user, {slots}] = await Promise.all([AuthService.getCurrentUser(), scheduleAPI.getSlots()]);
 
-                setUser(user);
-
-                const {attributes} = user;
-
-                const {
-                    state: { params },
-                  } = navigation;
-
-                const {seller, role, customer, route} = mapFromUserAttributes(attributes);
+                const {seller, role, customer, route} = user;
                 setUserAttributes({
                     seller, 
                     role : role === 'seller' ? 'seller': 'customer', customer,
                     route,
-                    from: params && params.from ? params.from : null
+                    from: null
                 });
                 
                 const groupedSlots = slots && slots.length > 0 ? slots.reduce((curr, slot) => {
@@ -226,8 +217,39 @@ export default function SetAvailability() {
         }
     }, [loading]);
 
-    const save = (goback = false) => {
-        /*if (!touched && goback) {
+    const save = async (goback = false) => {
+        try {
+            if (!touched && goback) {
+                if (userAttributes.from) {
+                    router.replace(userAttributes.from)
+                } else if (userAttributes.route) {
+                    if (userAttributes.route.includes('SetAvailability')) {
+                        if (userAttributes.role === "seller") {
+                            router.replace('/executive/listings')
+                        } else {
+                            router.replace('/seller/listings')
+                        }
+                    } else {
+                        router.replace(userAttributes.from);
+                    }
+                } else {
+                    router.back();
+                }
+            } else {
+                setLoading(true);
+                const response = await scheduleAPI.saveScheduleSlots(userAttributes[userAttributes.role], userAttributes.role, moment(currentDate).format("YYYY-MM-DD"), timeSlots, defaults);
+                setLoading(false);
+                setTouched(false);
+                
+            }    
+        } catch (e) {
+            setLoading(false);
+            setError(e.message);
+        }
+    }
+
+    /*const save = (goback = false) => {
+        if (!touched && goback) {
             if (userAttributes.from) {
                 navigation.navigate(userAttributes.from)
             } else if (userAttributes.route) {
@@ -266,8 +288,8 @@ export default function SetAvailability() {
                 setLoading(false);
                 setError(e.message);
             })
-        }*/
-    };
+        }
+    };*/
 
     function mapToTouchedDefaultsMap () {
         if (defaults && defaults.length > 0) {

@@ -17,7 +17,7 @@ function AuthLayout() {
     setReady(true);
   }, []);
 
-  useEffect(() => {
+  /*useEffect(() => {
     if (!ready) return;
   
     if (!user) {
@@ -27,7 +27,7 @@ function AuthLayout() {
     } else if (user && onboardingComplete) {
       router.replace('/dashboard'); // 👈 route to role-aware layout
     }
-  }, [ready, user, onboardingComplete, role]);
+  }, [ready, user, onboardingComplete, role]);*/
 
   return (
     <Stack screenOptions={{ headerShown: false }}>
